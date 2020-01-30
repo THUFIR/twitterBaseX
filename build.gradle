@@ -45,7 +45,7 @@ dependencies {
 }
 
 // Define the main class for the application
-mainClassName = 'twitterBaseX.App'
+mainClassName = 'App'
 
 test {
     // Use TestNG for unit tests

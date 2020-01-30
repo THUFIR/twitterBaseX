@@ -26,16 +26,15 @@ public class App {
         return properties;
     }
 
-    private static void main(String... args) throws IOException {
-        new App().init();
-    }
-
     private void init() throws IOException {
         TwitterOps to = new TwitterOps(loadProperties("twitter"));
-        // DatabaseOps db = new DatabaseOps(new Properties.loadFromXML(App.class.getResourceAsStream("basex.xml")));
         Properties databaseProperties = null;
-        databaseProperties.loadFromXML(App.class.getResourceAsStream("foo.xml"));
-        DatabaseOps  db = new DatabaseOps(databaseProperties);
+       // databaseProperties.loadFromXML(App.class.getResourceAsStream("/basex.xml"));
+      //  DatabaseOps db = new DatabaseOps(databaseProperties);
+    }
+
+    public static void main(String... args) throws IOException {
+        new App().init();
     }
 
 }
