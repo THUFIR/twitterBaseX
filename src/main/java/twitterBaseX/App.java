@@ -80,28 +80,11 @@ public class App {
       // Store the resource into the database
       col.storeResource(res);
      */
- /*
-    TwitterFactory tf = new TwitterFactory(cb.build());
-Twitter twitter = tf.getInstance();
-String jsonStatus; //Content read from a file
-Status status = TwitterObjectFactory.createStatus(jsonStatus); //your status
-User u2 = t.showUser(status.getUser().getScreenName()); // you use the twitter object once
-String jsonUser = TwitterObjectFactory.getRawJSON(status.getUser()); //now you won't get the error
-System.out.print(jsonUser); //your happy json
-     */
     private void insertStatus(Status status) throws JSONException {
-
         String string = TwitterObjectFactory.getRawJSON(status);
         JSONObject json = new JSONObject(string);
         String language = json.getString("lang");
-        log.info(json.toString());
-
-        /*
-        String string = DataObjectFactory.getRawJSON(status);
-        JSONObject json = new JSONObject(string);
-        String language = json.getString("lang");
-        log.info(json.toString());
-         */
+        log.info(language);
         //    XMLResource res = (XMLResource) col.createResource(id, XMLResource.RESOURCE_TYPE);
     }
 
