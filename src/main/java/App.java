@@ -1,4 +1,5 @@
 
+import basex.DatabaseOps;
 import java.io.IOException;
 import java.util.Properties;
 import java.util.Set;
@@ -31,6 +32,8 @@ public class App {
 
     private void init() throws IOException {
         TwitterOps to = new TwitterOps(loadProperties("twitter"));
+        DatabaseOps db = new DatabaseOps(loadProperties("basex"));
+        
     }
 
 }
