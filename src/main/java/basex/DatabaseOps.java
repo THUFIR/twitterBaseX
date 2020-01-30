@@ -1,4 +1,4 @@
-package org.basex.examples.local;
+package basex;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -14,11 +14,11 @@ import org.basex.core.cmd.DropDB;
 import org.basex.core.cmd.List;
 import org.basex.core.cmd.Set;
 import org.basex.core.cmd.XQuery;
-import twitterBaseX.App;
+import twitterBaseX.TwitterOps;
 
 public class DatabaseOps {
 
-    private static final Logger LOG = Logger.getLogger(App.class.getName());
+    private static final Logger LOG = Logger.getLogger(TwitterOps.class.getName());
     private Properties properties = new Properties();
     private URL url = null;
     private String databaseName = null;

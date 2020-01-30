@@ -1,5 +1,6 @@
-package twitterBaseX;
 
+
+import twitterBaseX.*;
 import java.io.IOException;
 import java.util.Properties;
 import java.util.Set;
