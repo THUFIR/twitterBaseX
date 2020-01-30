@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.Set;
 import java.util.logging.Logger;
+import org.basex.core.BaseXException;
 
 public class App {
 
@@ -25,14 +26,15 @@ public class App {
         return properties;
     }
 
-    private void init() throws IOException {
+    private void init() throws BaseXException, IOException {
     //    TwitterOps to = new TwitterOps(loadProperties("twitter"));
         Properties databaseProperties = new Properties();
         databaseProperties.loadFromXML(App.class.getResourceAsStream("/basex.xml"));
         DatabaseOps db = new DatabaseOps(databaseProperties);
+        db.fetch();
     }
 
-    public static void main(String... args) throws IOException {
+    public static void main(String... args) throws BaseXException, IOException {
         new App().init();
     }
 

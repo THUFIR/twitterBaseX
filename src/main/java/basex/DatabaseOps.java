@@ -48,13 +48,9 @@ public class DatabaseOps {
         }
     }
 
-    private void drop() {
-        try {
+    private void drop() throws BaseXException {
             new Set("parser", parserType).execute(context);
             new DropDB(databaseName).execute(context);
-        } catch (BaseXException ex) {
-            Logger.getLogger(DatabaseOps.class.getName()).log(Level.INFO, null, ex);
-        }
         list();
     }
 
@@ -90,7 +86,7 @@ public class DatabaseOps {
         }
     }
 
-    public void fetch() {
+    public void fetch() throws BaseXException {
         drop();
         create();
         infoOnDatabases();
