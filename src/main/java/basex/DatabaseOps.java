@@ -18,7 +18,7 @@ import twitterBaseX.TwitterOps;
 
 public class DatabaseOps {
 
-    private static final Logger LOG = Logger.getLogger(TwitterOps.class.getName());
+    private static final Logger LOG = Logger.getLogger(DatabaseOps.class.getName());
     private Properties properties = new Properties();
     private URL url = null;
     private String databaseName = null;
@@ -30,7 +30,7 @@ public class DatabaseOps {
 
     public DatabaseOps(Properties properties) {
         this.properties = properties;
-        LOG.fine(properties.toString());
+        LOG.info(properties.toString());
     }
 
     public void init() throws MalformedURLException {
