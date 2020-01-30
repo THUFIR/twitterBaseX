@@ -55,9 +55,7 @@ public class App {
         String string = null;
         JSONObject JSON_complete = null;
         for (Status status : result.getTweets()) {
-            string = DataObjectFactory.getRawJSON(status);
-            JSONObject json = new JSONObject(string);
-            insertTweet(json);
+            insertStatus(status);
         }
     }
 
@@ -81,10 +79,11 @@ public class App {
       // Store the resource into the database
       col.storeResource(res);
      */
-    private void insertTweet(JSON_Complete json) throws JSONException {
-        JSONObject user = json.getJSONObject("user");
-        String language = user.getString("lang");
-        log.info(language);
+    private void insertStatus(Status status) throws JSONException {
+        String string = DataObjectFactory.getRawJSON(status);
+        JSONObject json = new JSONObject(string);
+        String language = json.getString("lang");
+        log.fine(json.toString());
         //    XMLResource res = (XMLResource) col.createResource(id, XMLResource.RESOURCE_TYPE);
 
     }
