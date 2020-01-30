@@ -32,8 +32,10 @@ public class App {
 
     private void init() throws IOException {
         TwitterOps to = new TwitterOps(loadProperties("twitter"));
-        DatabaseOps db = new DatabaseOps(loadProperties("basex"));
-        
+        // DatabaseOps db = new DatabaseOps(new Properties.loadFromXML(App.class.getResourceAsStream("basex.xml")));
+        Properties databaseProperties = null;
+        databaseProperties.loadFromXML(App.class.getResourceAsStream("foo.xml"));
+        DatabaseOps  db = new DatabaseOps(databaseProperties);
     }
 
 }
