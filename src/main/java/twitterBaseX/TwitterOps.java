@@ -43,6 +43,7 @@ public class TwitterOps {
     }
 
     private TwitterFactory configTwitterFactory() throws IOException {
+        propsOps();
         ConfigurationBuilder configurationBuilder = new ConfigurationBuilder();
 
         configurationBuilder.setDebugEnabled(true)
