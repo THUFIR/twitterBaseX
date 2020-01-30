@@ -29,10 +29,10 @@ public class App {
 
     private void init() throws IOException {
         TwitterOps to = new TwitterOps(loadProperties("twitter"));
-        Properties databaseProperties = null;
+        Properties databaseProperties = new Properties();
         InputStream foo = App.class.getResourceAsStream("/basex.xml");
-        // databaseProperties.loadFromXML(App.class.getResourceAsStream("/basex.xml"));
-        //  DatabaseOps db = new DatabaseOps(databaseProperties);
+        databaseProperties.loadFromXML(App.class.getResourceAsStream("/basex.xml"));
+        DatabaseOps db = new DatabaseOps(databaseProperties);
     }
 
     public static void main(String... args) throws IOException {
