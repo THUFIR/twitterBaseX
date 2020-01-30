@@ -83,7 +83,7 @@ public class App {
         String string = DataObjectFactory.getRawJSON(status);
         JSONObject json = new JSONObject(string);
         String language = json.getString("lang");
-        log.fine(json.toString());
+        log.info(json.toString());
         //    XMLResource res = (XMLResource) col.createResource(id, XMLResource.RESOURCE_TYPE);
 
     }
