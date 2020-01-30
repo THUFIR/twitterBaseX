@@ -26,7 +26,7 @@ public class TwitterOps {
     private TwitterOps() {
     }
 
-    TwitterOps(Properties properties) {
+    public TwitterOps(Properties properties) {
         this.properties = properties;
     }
 
