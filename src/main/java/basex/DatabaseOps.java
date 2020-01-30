@@ -40,50 +40,36 @@ public class DatabaseOps {
         context = new Context();
     }
 
-    private void list() {
-        try {
-            LOG.fine(new List().execute(context));
-        } catch (BaseXException ex) {
-            Logger.getLogger(DatabaseOps.class.getName()).log(Level.FINE, null, ex);
-        }
+    private void list() throws BaseXException {
+    //    LOG.fine(new List().execute(context));
     }
 
     private void drop() throws BaseXException {
-            new Set("parser", parserType).execute(context);
-            new DropDB(databaseName).execute(context);
-        list();
+        //   new Set("parser", parserType).execute(context);
+        //   new DropDB(databaseName).execute(context);
+        //   list();
     }
 
-    private void create() {
-        try {
-            new Set("parser", parserType).execute(context);
-            new CreateDB(databaseName, url.toString()).execute(context);
-            new List().execute(context);
-        } catch (BaseXException ex) {
-            Logger.getLogger(DatabaseOps.class.getName()).log(Level.INFO, null, ex);
-        }
-        list();
+    private void create() throws BaseXException {
+        //  new Set("parser", parserType).execute(context);
+        //  new CreateDB(databaseName, url.toString()).execute(context);
+        //   new List().execute(context);
+        //   list();
     }
 
     private void infoOnDatabases() {
-        Databases databases = context.databases;
-        Iterator<String> databaseIterator = databases.list().iterator();
+        //   Databases databases = context.databases;
+        //    Iterator<String> databaseIterator = databases.list().iterator();
 
-        String currentDatabaseName = null;
-        while (databaseIterator.hasNext()) {
-            currentDatabaseName = databaseIterator.next();
-            LOG.info(currentDatabaseName);
-            //xQuery here..
-        }
-
+        //     String currentDatabaseName = null;
+        //     while (databaseIterator.hasNext()) {
+        //         currentDatabaseName = databaseIterator.next();
+        //         LOG.info(currentDatabaseName);
+        //xQuery here..
     }
 
-    private void query(final String query) {
-        try {
-            LOG.fine(new XQuery(query).execute(context));
-        } catch (BaseXException ex) {
-            Logger.getLogger(DatabaseOps.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    private void query(final String query) throws BaseXException {
+       //     LOG.fine(new XQuery(query).execute(context));
     }
 
     public void fetch() throws BaseXException {
@@ -92,7 +78,7 @@ public class DatabaseOps {
         infoOnDatabases();
         list();
         query("//note/body/text()");
-        context.close();
+     //   context.close();
     }
 
 }
