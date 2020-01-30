@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.Set;
 import java.util.logging.Logger;
+import org.basex.core.BaseXException;
+import org.basex.core.Context;
+import org.basex.core.cmd.CreateDB;
 import twitter4j.JSONException;
 import twitter4j.JSONObject;
 import twitter4j.Query;
@@ -80,11 +83,18 @@ public class App {
       // Store the resource into the database
       col.storeResource(res);
      */
-    private void insertStatus(Status status) throws JSONException {
+    private void insertStatus(Status status) throws JSONException, BaseXException {
         String string = TwitterObjectFactory.getRawJSON(status);
         JSONObject json = new JSONObject(string);
         String language = json.getString("lang");
         log.info(language);
+        
+        
+    Context context = new Context();
+        
+    new CreateDB("DBExample", "src/main/resources/xml/input.xml").execute(context);
+
+        
         //    XMLResource res = (XMLResource) col.createResource(id, XMLResource.RESOURCE_TYPE);
     }
 

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <comment>jaxb</comment>
+    <entry key="input_data_xml">file:/home/thufir/jaxb/data.xml</entry>
+    <entry key="input_csv">file:/home/thufir/jaxb/input.csv</entry>
+    <entry key="input_uri">file:/home/thufir/jaxb/countries_input.xml</entry>
+    <entry key="output_uri">file:/home/thufir/jaxb/countries_output.xml</entry>
+    <entry key="output_html_to_uri">file:/home/thufir/jaxb/html_output.xml</entry>
+    <entry key="input_books_file_to_uri">file:/home/thufir/jaxb/books_input.xml</entry>
+    <entry key="output_books_file_to_uri">file:/home/thufir/jaxb/books_output.xml</entry>
+    <entry key="output">file:/home/thufir/jaxb/output.xml</entry>
+    <entry key="object_count">3</entry>   
+    <entry key="url">http://books.toscrape.com/</entry>
+    <entry key="note">https://www.w3schools.com/xml/note.xml</entry>
+    <entry key="kingfisher">http://www.kingfisher.org/</entry>
+    <entry key="books">http://books.toscrape.com/</entry>
+    <entry key="noagenda">http://thufir.github.io/noagenda/</entry>
+    <entry key="mobi">https://ebook.online-convert.com/convert-to-mobi</entry>
+</properties>
