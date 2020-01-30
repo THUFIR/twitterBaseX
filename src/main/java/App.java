@@ -1,6 +1,7 @@
 
 import basex.DatabaseOps;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -29,8 +30,9 @@ public class App {
     private void init() throws IOException {
         TwitterOps to = new TwitterOps(loadProperties("twitter"));
         Properties databaseProperties = null;
-       // databaseProperties.loadFromXML(App.class.getResourceAsStream("/basex.xml"));
-      //  DatabaseOps db = new DatabaseOps(databaseProperties);
+        InputStream foo = App.class.getResourceAsStream("/basex.xml");
+        // databaseProperties.loadFromXML(App.class.getResourceAsStream("/basex.xml"));
+        //  DatabaseOps db = new DatabaseOps(databaseProperties);
     }
 
     public static void main(String... args) throws IOException {
