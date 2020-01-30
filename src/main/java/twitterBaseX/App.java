@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.Set;
 import java.util.logging.Logger;
+import twitter4j.JSONException;
+import twitter4j.JSONObject;
 import twitter4j.Query;
 import twitter4j.QueryResult;
 import twitter4j.Status;
@@ -46,23 +48,19 @@ public class App {
         return new TwitterFactory(configurationBuilder.build());
     }
 
-    private void getTweetsAsJSON() throws TwitterException, IOException {
+    private void twitterQueryResult() throws TwitterException, IOException, JSONException {
         Twitter twitter = configTwitterFactory(loadProperties("twitter")).getInstance();
-
         Query query = new Query("lizardbill");
         QueryResult result = twitter.search(query);
-//        List<Status> statuses = result.getTweets();
-        for (Status tweet : result.getTweets()) {
-            // log.info(tweet.getFromUser() + ":" + tweet.getText());
-            String json = DataObjectFactory.getRawJSON(tweet);
-            log.info(json);
-            insert(json);
+        String string = null;
+        JSONObject JSON_complete = null;
+        for (Status status : result.getTweets()) {
+            string = DataObjectFactory.getRawJSON(status);
+            JSONObject json = new JSONObject(string);
+            insertTweet(json);
         }
     }
 
-    public static void main(String[] args) throws TwitterException, IOException {
-        new App().getTweetsAsJSON();
-    }
 
     /*
     
@@ -83,8 +81,15 @@ public class App {
       // Store the resource into the database
       col.storeResource(res);
      */
-    private void insert(String json) {
+    private void insertTweet(JSON_Complete json) throws JSONException {
+        JSONObject user = json.getJSONObject("user");
+        String language = user.getString("lang");
+        log.info(language);
         //    XMLResource res = (XMLResource) col.createResource(id, XMLResource.RESOURCE_TYPE);
+
     }
 
+    public static void main(String[] args) throws TwitterException, IOException, JSONException {
+        new App().twitterQueryResult();
+    }
 }
