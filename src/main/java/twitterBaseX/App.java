@@ -35,6 +35,7 @@ public class App {
         ConfigurationBuilder configurationBuilder = new ConfigurationBuilder();
 
         configurationBuilder.setDebugEnabled(true)
+                .setJSONStoreEnabled(true)
                 .setOAuthConsumerKey(properties.getProperty("oAuthConsumerKey"))
                 .setOAuthConsumerSecret(properties.getProperty("oAuthConsumerSecret"))
                 .setOAuthAccessToken(properties.getProperty("oAuthAccessToken"))
