@@ -1,15 +1,17 @@
 package twitterBaseX;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 import java.util.logging.Logger;
+import twitter4j.Query;
+import twitter4j.QueryResult;
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
 import twitter4j.conf.ConfigurationBuilder;
+import twitter4j.json.DataObjectFactory;
 
 public class App {
 
@@ -44,19 +46,45 @@ public class App {
         return new TwitterFactory(configurationBuilder.build());
     }
 
-    private void getHomeTimeLine() throws TwitterException, IOException {
+    private void getTweetsAsJSON() throws TwitterException, IOException {
         Twitter twitter = configTwitterFactory(loadProperties("twitter")).getInstance();
-        List<Status> statuses = null;
-        statuses = twitter.getUserTimeline("KimKardashian");
-        if (statuses != null) {
-            for (Status status : statuses) {
-                log.info(status.getText());
-            }
+
+        Query query = new Query("lizardbill");
+        QueryResult result = twitter.search(query);
+//        List<Status> statuses = result.getTweets();
+        for (Status tweet : result.getTweets()) {
+            // log.info(tweet.getFromUser() + ":" + tweet.getText());
+            String json = DataObjectFactory.getRawJSON(tweet);
+            log.info(json);
+            insert(json);
         }
     }
 
     public static void main(String[] args) throws TwitterException, IOException {
-        new App().getHomeTimeLine();
+        new App().getTweetsAsJSON();
+    }
+
+    /*
+    
+      // Content of the new document
+      String doc = "<xml>Hello World!</xml>";
+
+      System.out.println("\n* Create new resource.");
+
+      // Create a new XML resource with the specified ID
+      XMLResource res = (XMLResource) col.createResource(id,
+          XMLResource.RESOURCE_TYPE);
+
+      // Set the content of the XML resource as the document
+      res.setContent(doc);
+
+      System.out.println("\n* Store new resource.");
+
+      // Store the resource into the database
+      col.storeResource(res);
+     */
+    private void insert(String json) {
+        //    XMLResource res = (XMLResource) col.createResource(id, XMLResource.RESOURCE_TYPE);
     }
 
 }
