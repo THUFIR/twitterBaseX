@@ -1,6 +1,7 @@
 
 import basex.DatabaseOps;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.Properties;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -26,7 +27,7 @@ public class App {
         return properties;
     }
 
-    private void init() throws BaseXException, IOException {
+    private void init() throws BaseXException, IOException, MalformedURLException {
     //    TwitterOps to = new TwitterOps(loadProperties("twitter"));
         Properties databaseProperties = new Properties();
         databaseProperties.loadFromXML(App.class.getResourceAsStream("/basex.xml"));
@@ -34,7 +35,7 @@ public class App {
         db.fetch();
     }
 
-    public static void main(String... args) throws BaseXException, IOException {
+    public static void main(String... args) throws BaseXException, IOException, MalformedURLException {
         new App().init();
     }
 

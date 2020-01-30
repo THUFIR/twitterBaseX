@@ -72,13 +72,14 @@ public class DatabaseOps {
        //     LOG.fine(new XQuery(query).execute(context));
     }
 
-    public void fetch() throws BaseXException {
+    public void fetch() throws BaseXException, MalformedURLException {
+        init();
         drop();
         create();
         infoOnDatabases();
         list();
         query("//note/body/text()");
-     //   context.close();
+        context.close();
     }
 
 }
