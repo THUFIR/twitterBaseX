@@ -27,11 +27,9 @@ public class App {
 
     private static final Logger log = Logger.getLogger(App.class.getName());
 
-    private List<JSONObject> getTweets() throws TwitterException, IOException, JSONException {
-        List<JSONObject> tweets = new ArrayList<>();
-        tweets = new TwitterOps().getTweets();
-        log.fine("tweets\t\t" + tweets.size());
-        return tweets;
+    private void getTweets() throws TwitterException, IOException, JSONException {
+        TwitterOps to = new TwitterOps();
+        to.consumeTweets("lizardbill", "tweets.json");
     }
 
     private void twitterToBaseX() throws UnsupportedEncodingException, IOException, TwitterException, JSONException {

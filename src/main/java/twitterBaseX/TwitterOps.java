@@ -47,10 +47,10 @@ public class TwitterOps {
         return new TwitterFactory(configurationBuilder.build());
     }
 
-    public List<JSONObject> getTweets() throws TwitterException, IOException, JSONException {
+    public void consumeTweets(String user, String fileName) throws TwitterException, IOException, JSONException {
         Twitter twitter = configTwitterFactory().getInstance();
 
-        Query query = new Query("lizardbill");
+        Query query = new Query(user);
         QueryResult result = twitter.search(query);
         String string = null;
         JSONObject tweet = null;
@@ -59,7 +59,7 @@ public class TwitterOps {
             tweet = jsonOps(status);
             tweets.add(tweet);
         }
-        return tweets;
+        writeJsonToFile(fileName);
     }
 
     private JSONObject jsonOps(Status status) throws JSONException, BaseXException {
@@ -70,7 +70,7 @@ public class TwitterOps {
         return json;
     }
 
-    public void writeJsonToFile(String fileName, List<JSONObject> tweets) throws FileNotFoundException, UnsupportedEncodingException, IOException {
+    public void writeJsonToFile(String fileName) throws FileNotFoundException, UnsupportedEncodingException, IOException {
         FileOutputStream fileOutputStream = null;
         OutputStreamWriter outputStreamWriter = null;
         BufferedWriter bufferedWriter = null;
