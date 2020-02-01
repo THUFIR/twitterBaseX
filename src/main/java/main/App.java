@@ -21,17 +21,9 @@ import twitter4j.JSONObject;
 import twitter4j.TwitterException;
 import twitterBaseX.TwitterOps;
 
-
 public class App {
 
     private static final Logger log = Logger.getLogger(App.class.getName());
-
-    private void baseX(List<JSONObject> tweets) throws MalformedURLException, IOException {
-        Properties databaseProperties = new Properties();
-        databaseProperties.loadFromXML(App.class.getResourceAsStream("/basex.xml"));
-        DatabaseOps db = new DatabaseOps(databaseProperties);
-        db.addTweets(tweets);
-    }
 
     private List<JSONObject> getTweets() throws TwitterException, IOException, JSONException {
         List<JSONObject> tweets = new ArrayList<>();
@@ -60,9 +52,13 @@ public class App {
         fileOutputStream.close();
     }
 
-    private void baseX(String fileName) throws IOException {
+
+    private void baseX(List<JSONObject> tweets, fileName) throws MalformedURLException, IOException {
+        Properties databaseProperties = new Properties();
+        databaseProperties.loadFromXML(App.class.getResourceAsStream("/basex.xml"));
+        DatabaseOps db = new DatabaseOps(databaseProperties);
         JsonParser jsonParser = new JsonParser(new IOFile(fileName), new MainOptions());
-        SAXWrapper saxWrapper = JsonParser.xmlParser(ioFile);
+        db.addTweets(tweets);
     }
 
     public static void main(String... args) throws IOException, UnsupportedEncodingException, TwitterException, JSONException {
