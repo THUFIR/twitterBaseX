@@ -13,12 +13,14 @@ import java.util.List;
 import java.util.Properties;
 import java.util.logging.Logger;
 import org.basex.build.json.JsonParser;
+import org.basex.build.xml.SAXWrapper;
 import org.basex.core.MainOptions;
 import org.basex.io.IOFile;
 import twitter4j.JSONException;
 import twitter4j.JSONObject;
 import twitter4j.TwitterException;
 import twitterBaseX.TwitterOps;
+
 
 public class App {
 
@@ -61,8 +63,10 @@ public class App {
     private void baseX(String fileName) throws IOException {
         IOFile iof = new IOFile(fileName);
         MainOptions opts = new MainOptions();
-        JsonParser JsonParser = new JsonParser(iof, opts);
+        JsonParser jsonParser = new JsonParser(iof, opts);
         log.info("file has been read...");
+        SAXWrapper saxWrapper = JsonParser.xmlParser(iof);
+        log.info("parsed...I guess...");
     }
 
     public static void main(String... args) throws IOException, UnsupportedEncodingException, TwitterException, JSONException {
