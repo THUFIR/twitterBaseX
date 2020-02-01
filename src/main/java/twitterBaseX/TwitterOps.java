@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.Set;
 import java.util.logging.Logger;
+import main.LoadProps;
 import org.basex.core.BaseXException;
 import org.basex.core.Context;
 import org.basex.core.cmd.CreateDB;
@@ -23,27 +24,14 @@ public class TwitterOps {
     private static final Logger log = Logger.getLogger(TwitterOps.class.getName());
     private Properties properties = new Properties();
 
-    private TwitterOps() {
+   public TwitterOps() {
     }
 
-    public TwitterOps(Properties properties) {
-        this.properties = properties;
-    }
-
-    private void propsOps() {
-        Set<Object> keySet = properties.keySet();
-        String key = null;
-        String value = null;
-
-        for (Object obj : keySet) {
-            key = obj.toString();
-            value = System.getenv(key);
-            properties.setProperty(key, value);
-        }
-    }
+    
 
     private TwitterFactory configTwitterFactory() throws IOException {
-        propsOps();
+        LoadProps loadTwitterProps = new LoadProps("twitter");
+        Properties twitterProperties = loadTwitterProps.loadProperties();
         ConfigurationBuilder configurationBuilder = new ConfigurationBuilder();
 
         configurationBuilder.setDebugEnabled(true)
