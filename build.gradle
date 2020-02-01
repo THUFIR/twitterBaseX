@@ -45,7 +45,7 @@ dependencies {
 }
 
 // Define the main class for the application
-mainClassName = 'App'
+mainClassName = 'foo.App'
 
 test {
     // Use TestNG for unit tests

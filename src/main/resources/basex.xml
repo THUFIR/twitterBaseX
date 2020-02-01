@@ -7,4 +7,23 @@
     <entry key="databaseName">w3school_data</entry>
     <entry key="databasePath">src/main/resources/input.xml</entry>
     <entry key="dataPath">src/main/resources/data.xml</entry>
+    
+      
+      
+    
 </properties>
+
+
+
+<!--
+basex_dataPath=src/main/resources/data.xml                                                      
+basex_xmlURL=https://www.w3schools.com/xml/note.xml                                             
+basex_db_name=w3school_data                                                                     
+basex_db_path=src/main/resources/input.xml                                                      
+basex_htmlURL=http://books.toscrape.com/  
+
+    
+    
+    
+-->
+

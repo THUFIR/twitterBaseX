@@ -1,4 +1,6 @@
 
+package foo;
+
 import basex.DatabaseOps;
 import java.io.IOException;
 import java.net.MalformedURLException;
