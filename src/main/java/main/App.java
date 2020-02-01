@@ -1,5 +1,5 @@
 
-package foo;
+package main;
 
 import basex.DatabaseOps;
 import java.io.IOException;
