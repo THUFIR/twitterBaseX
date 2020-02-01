@@ -14,6 +14,8 @@ import org.basex.core.cmd.List;
 import org.basex.core.cmd.Set;
 import org.basex.core.cmd.XQuery;
 import twitter4j.JSONObject;
+import org.basex.io.parse.json.JsonConverter;
+import org.basex.build.json.JsonParser;
 
 public class DatabaseOps {
 
@@ -32,11 +34,12 @@ public class DatabaseOps {
         log.fine(properties.toString());
     }
 
-    public void init() throws MalformedURLException {
+    public void init() throws MalformedURLException, BaseXException {
         parserType = properties.getProperty("parserType");
         url = new URL(properties.getProperty(parserType + "URL"));
         databaseName = properties.getProperty("databaseName");
         context = new Context();
+        list();
     }
 
     private void list() throws BaseXException {
@@ -82,12 +85,18 @@ public class DatabaseOps {
         context.close();
     }
 
+    private void addTweetFromList(java.util.List<JSONObject> tweets) {
+
+        JsonConverter jc;
+        JsonParser jp;
+
+    }
+
     public void addTweets(java.util.List<JSONObject> tweets) throws MalformedURLException, BaseXException {
         init();
         drop();
         create();
         infoOnDatabases();
-        list();
         context.close();
     }
 

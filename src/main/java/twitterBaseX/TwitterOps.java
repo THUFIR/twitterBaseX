@@ -21,7 +21,6 @@ import twitter4j.conf.ConfigurationBuilder;
 public class TwitterOps {
 
     private static final Logger log = Logger.getLogger(TwitterOps.class.getName());
-//    private Properties properties = new Properties();
 
     public TwitterOps() {
     }
@@ -50,7 +49,7 @@ public class TwitterOps {
         String string = null;
         JSONObject tweet = null;
         List<JSONObject> tweets = new ArrayList<>();
-        
+
         for (Status status : result.getTweets()) {
             tweet = jsonOps(status);
             tweets.add(tweet);
@@ -63,13 +62,18 @@ public class TwitterOps {
         JSONObject json = new JSONObject(string);
         String language = json.getString("lang");
         log.fine(language);
-
-//        Context context = new Context();
-
-      //  new CreateDB("DBExample", "src/main/resources/xml/input.xml").execute(context);
-
-        //    XMLResource res = (XMLResource) col.createResource(id, XMLResource.RESOURCE_TYPE);
         return json;
     }
+    
+    /*
+        FileOutputStream fos = null;
+        OutputStreamWriter osw = null;
+        BufferedWriter bw = null;
+        try {
+            fos = new FileOutputStream(fileName);
+            osw = new OutputStreamWriter(fos, "UTF-8");
+            bw = new BufferedWriter(osw);
+            bw.write(rawJSON);
+    */
 
 }
