@@ -42,13 +42,10 @@ public class App {
         return tweets;
     }
 
-    private void twitterToBaseX() throws UnsupportedEncodingException, IOException  {
+    private void twitterToBaseX() throws UnsupportedEncodingException, IOException {
         List<JSONObject> tweets = getTweets();
-
         log.fine(tweets.toString());
-
         convertJsonToXml("foo", tweets);
-
         baseX(tweets);
 
     }
