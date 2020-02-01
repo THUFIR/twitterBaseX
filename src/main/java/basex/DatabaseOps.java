@@ -13,6 +13,7 @@ import org.basex.core.cmd.DropDB;
 import org.basex.core.cmd.List;
 import org.basex.core.cmd.Set;
 import org.basex.core.cmd.XQuery;
+import twitter4j.JSONObject;
 
 public class DatabaseOps {
 
@@ -68,7 +69,7 @@ public class DatabaseOps {
     }
 
     private void query(final String query) throws BaseXException {
-            log.fine(new XQuery(query).execute(context));
+        log.fine(new XQuery(query).execute(context));
     }
 
     public void fetch() throws BaseXException, MalformedURLException {
@@ -78,6 +79,15 @@ public class DatabaseOps {
         infoOnDatabases();
         list();
         query("//note/body/text()");
+        context.close();
+    }
+
+    public void addTweets(java.util.List<JSONObject> tweets) throws MalformedURLException, BaseXException {
+        init();
+        drop();
+        create();
+        infoOnDatabases();
+        list();
         context.close();
     }
 

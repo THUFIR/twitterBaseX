@@ -2,6 +2,7 @@ package main;
 
 import basex.DatabaseOps;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -16,15 +17,16 @@ public class App {
 
     private static final Logger log = Logger.getLogger(App.class.getName());
 
-    private void baseX() throws IOException  {
+    private void baseX(List<JSONObject> tweets) throws MalformedURLException, IOException  {
         //    TwitterOps to = new TwitterOps(loadProperties("twitter"));
         Properties databaseProperties = new Properties();
         databaseProperties.loadFromXML(App.class.getResourceAsStream("/basex.xml"));
         DatabaseOps db = new DatabaseOps(databaseProperties);
-        db.fetch();
+      //  db.fetch();
+      db.addTweets(tweets);
     }
 
-    private void twitter() {
+    private List<JSONObject> getTweets() {
         List<JSONObject> tweets = new ArrayList<>();
         try {
             tweets = new TwitterOps().getTweets();
@@ -32,11 +34,15 @@ public class App {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         }
         log.info("tweets\t\t" + tweets.size());
+        return tweets;
     }
 
     private void twitterToBaseX() {
+        
+        List<JSONObject> tweets = getTweets();
+        
         try {
-            baseX();
+            baseX(tweets);
         } catch (IOException ex) {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         }
