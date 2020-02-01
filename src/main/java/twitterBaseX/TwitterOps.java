@@ -29,7 +29,7 @@ public class TwitterOps {
     private TwitterFactory configTwitterFactory() throws IOException {
         LoadProps loadTwitterProps = new LoadProps("twitter");
         Properties properties = loadTwitterProps.loadProperties();
-        log.info(properties.toString());
+        log.fine(properties.toString());
         ConfigurationBuilder configurationBuilder = new ConfigurationBuilder();
 
         configurationBuilder.setDebugEnabled(true)

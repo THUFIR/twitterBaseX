@@ -18,7 +18,7 @@ public class App {
 
     private static final Logger log = Logger.getLogger(App.class.getName());
 
-    private void basex() throws BaseXException, IOException, MalformedURLException {
+    private void baseX() throws IOException  {
         //    TwitterOps to = new TwitterOps(loadProperties("twitter"));
         Properties databaseProperties = new Properties();
         databaseProperties.loadFromXML(App.class.getResourceAsStream("/basex.xml"));
@@ -26,23 +26,26 @@ public class App {
         db.fetch();
     }
 
-    private List<JSONObject> getTweets() throws TwitterException, IOException, JSONException {
-        List<JSONObject> tweets = new TwitterOps().getTweets();
-        return tweets;
-    }
-
-    private void init() {
+    private void twitter() {
         List<JSONObject> tweets = new ArrayList<>();
         try {
-            tweets = getTweets();
+            tweets = new TwitterOps().getTweets();
         } catch (TwitterException | IOException | JSONException ex) {
             Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
         }
-        log.info(tweets.toString());
+        log.info("tweets\t\t" + tweets.size());
     }
 
-    public static void main(String... args)  {
-        new App().init();
+    private void twitterToBaseX() {
+        try {
+            baseX();
+        } catch (IOException ex) {
+            Logger.getLogger(App.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public static void main(String... args) {
+        new App().twitterToBaseX();
     }
 
 }
