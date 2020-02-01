@@ -66,11 +66,12 @@ public class TwitterOps {
         String language = json.getString("lang");
         log.info(language);
 
-        Context context = new Context();
+//        Context context = new Context();
 
-        new CreateDB("DBExample", "src/main/resources/xml/input.xml").execute(context);
+      //  new CreateDB("DBExample", "src/main/resources/xml/input.xml").execute(context);
 
         //    XMLResource res = (XMLResource) col.createResource(id, XMLResource.RESOURCE_TYPE);
+        log.info(json.toString());
         return json;
     }
 
