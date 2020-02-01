@@ -23,14 +23,15 @@ import twitter4j.conf.ConfigurationBuilder;
 public class TwitterOps {
 
     private static final Logger log = Logger.getLogger(TwitterOps.class.getName());
-    private Properties properties = new Properties();
+//    private Properties properties = new Properties();
 
     public TwitterOps() {
     }
 
     private TwitterFactory configTwitterFactory() throws IOException {
         LoadProps loadTwitterProps = new LoadProps("twitter");
-        Properties twitterProperties = loadTwitterProps.loadProperties();
+        Properties properties = loadTwitterProps.loadProperties();
+        log.info(properties.toString());
         ConfigurationBuilder configurationBuilder = new ConfigurationBuilder();
 
         configurationBuilder.setDebugEnabled(true)
