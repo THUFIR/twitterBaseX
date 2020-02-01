@@ -2,19 +2,13 @@ package basex;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Iterator;
 import java.util.Properties;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.basex.core.BaseXException;
 import org.basex.core.Context;
-import org.basex.core.Databases;
-import org.basex.core.cmd.CreateDB;
 import org.basex.core.cmd.DropDB;
 import org.basex.core.cmd.List;
 import org.basex.core.cmd.Set;
-import org.basex.core.cmd.XQuery;
-import twitterBaseX.TwitterOps;
 
 public class DatabaseOps {
 
@@ -41,13 +35,13 @@ public class DatabaseOps {
     }
 
     private void list() throws BaseXException {
-    //    LOG.fine(new List().execute(context));
+        log.info(new List().execute(context));
     }
 
     private void drop() throws BaseXException {
-        //   new Set("parser", parserType).execute(context);
-        //   new DropDB(databaseName).execute(context);
-        //   list();
+        new Set("parser", parserType).execute(context);
+        new DropDB(databaseName).execute(context);
+        list();
     }
 
     private void create() throws BaseXException {
@@ -69,7 +63,7 @@ public class DatabaseOps {
     }
 
     private void query(final String query) throws BaseXException {
-       //     LOG.fine(new XQuery(query).execute(context));
+        //     LOG.fine(new XQuery(query).execute(context));
     }
 
     public void fetch() throws BaseXException, MalformedURLException {

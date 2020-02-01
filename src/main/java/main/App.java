@@ -2,13 +2,11 @@ package main;
 
 import basex.DatabaseOps;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.basex.core.BaseXException;
 import twitter4j.JSONException;
 import twitter4j.JSONObject;
 import twitter4j.TwitterException;
