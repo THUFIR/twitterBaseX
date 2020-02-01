@@ -2,7 +2,6 @@ package twitterBaseX;
 
 import java.io.IOException;
 import java.util.Properties;
-import java.util.Set;
 import java.util.logging.Logger;
 import main.LoadProps;
 import org.basex.core.BaseXException;
