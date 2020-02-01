@@ -101,3 +101,11 @@ public class DatabaseOps {
     }
 
 }
+
+
+/*
+
+               // create session
+               final BaseXClient session = new BaseXClient("localhost", 1984, "admin", "admin");
+               System.out.println(session.execute("info"));
+*/

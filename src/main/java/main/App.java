@@ -61,12 +61,8 @@ public class App {
     }
 
     private void baseX(String fileName) throws IOException {
-        IOFile iof = new IOFile(fileName);
-        MainOptions opts = new MainOptions();
-        JsonParser jsonParser = new JsonParser(iof, opts);
-        log.info("file has been read...");
-        SAXWrapper saxWrapper = JsonParser.xmlParser(iof);
-        log.info("parsed...I guess...");
+        JsonParser jsonParser = new JsonParser(new IOFile(fileName), new MainOptions());
+        SAXWrapper saxWrapper = JsonParser.xmlParser(ioFile);
     }
 
     public static void main(String... args) throws IOException, UnsupportedEncodingException, TwitterException, JSONException {
