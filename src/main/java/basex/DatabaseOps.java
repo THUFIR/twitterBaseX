@@ -1,5 +1,6 @@
 package basex;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Iterator;
@@ -14,8 +15,9 @@ import org.basex.core.cmd.List;
 import org.basex.core.cmd.Set;
 import org.basex.core.cmd.XQuery;
 import twitter4j.JSONObject;
-import org.basex.io.parse.json.JsonConverter;
 import org.basex.build.json.JsonParser;
+import org.basex.core.MainOptions;
+import org.basex.io.IOFile;
 
 public class DatabaseOps {
 
@@ -85,11 +87,8 @@ public class DatabaseOps {
         context.close();
     }
 
-    private void addTweetFromList(java.util.List<JSONObject> tweets) {
-
-        JsonConverter jc;
-        JsonParser jp;
-
+    private void parseJsonFile(String fileName) throws IOException {
+        JsonParser jsonParser = new JsonParser(new IOFile(fileName), new MainOptions());
     }
 
     public void addTweets(java.util.List<JSONObject> tweets) throws MalformedURLException, BaseXException {
@@ -108,4 +107,4 @@ public class DatabaseOps {
                // create session
                final BaseXClient session = new BaseXClient("localhost", 1984, "admin", "admin");
                System.out.println(session.execute("info"));
-*/
+ */

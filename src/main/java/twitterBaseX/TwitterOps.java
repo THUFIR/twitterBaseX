@@ -1,6 +1,11 @@
 package twitterBaseX;
 
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -21,6 +26,7 @@ import twitter4j.conf.ConfigurationBuilder;
 public class TwitterOps {
 
     private static final Logger log = Logger.getLogger(TwitterOps.class.getName());
+    private List<JSONObject> tweets = new ArrayList<>();
 
     public TwitterOps() {
     }
@@ -48,7 +54,6 @@ public class TwitterOps {
         QueryResult result = twitter.search(query);
         String string = null;
         JSONObject tweet = null;
-        List<JSONObject> tweets = new ArrayList<>();
 
         for (Status status : result.getTweets()) {
             tweet = jsonOps(status);
@@ -64,16 +69,17 @@ public class TwitterOps {
         log.fine(language);
         return json;
     }
-    
-    /*
-        FileOutputStream fos = null;
-        OutputStreamWriter osw = null;
-        BufferedWriter bw = null;
-        try {
-            fos = new FileOutputStream(fileName);
-            osw = new OutputStreamWriter(fos, "UTF-8");
-            bw = new BufferedWriter(osw);
-            bw.write(rawJSON);
-    */
 
+    public void writeJsonToFile(String fileName, List<JSONObject> tweets) throws FileNotFoundException, UnsupportedEncodingException, IOException {
+        FileOutputStream fileOutputStream = null;
+        OutputStreamWriter outputStreamWriter = null;
+        BufferedWriter bufferedWriter = null;
+        fileOutputStream = new FileOutputStream(fileName);
+        outputStreamWriter = new OutputStreamWriter(fileOutputStream, "UTF-8");
+        bufferedWriter = new BufferedWriter(outputStreamWriter);
+        bufferedWriter.write(tweets.toString());
+        bufferedWriter.close();
+        outputStreamWriter.close();
+        fileOutputStream.close();
+    }
 }
