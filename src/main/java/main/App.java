@@ -19,7 +19,6 @@ public class App {
 
         DatabaseOps db = new DatabaseOps();
         db.loadTweets(fileName);
-
     }
 
     public static void main(String... args) throws TwitterException, IOException, JSONException {
