@@ -2,13 +2,17 @@ package basex;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Iterator;
 import java.util.Properties;
 import java.util.logging.Logger;
 import org.basex.core.BaseXException;
 import org.basex.core.Context;
+import org.basex.core.Databases;
+import org.basex.core.cmd.CreateDB;
 import org.basex.core.cmd.DropDB;
 import org.basex.core.cmd.List;
 import org.basex.core.cmd.Set;
+import org.basex.core.cmd.XQuery;
 
 public class DatabaseOps {
 
@@ -45,25 +49,26 @@ public class DatabaseOps {
     }
 
     private void create() throws BaseXException {
-        //  new Set("parser", parserType).execute(context);
-        //  new CreateDB(databaseName, url.toString()).execute(context);
-        //   new List().execute(context);
-        //   list();
+        new Set("parser", parserType).execute(context);
+        new CreateDB(databaseName, url.toString()).execute(context);
+        new List().execute(context);
+        list();
     }
 
     private void infoOnDatabases() {
-        //   Databases databases = context.databases;
-        //    Iterator<String> databaseIterator = databases.list().iterator();
+        Databases databases = context.databases;
+        Iterator<String> databaseIterator = databases.list().iterator();
 
-        //     String currentDatabaseName = null;
-        //     while (databaseIterator.hasNext()) {
-        //         currentDatabaseName = databaseIterator.next();
-        //         log.fine(currentDatabaseName);
-        //xQuery here..
+        String currentDatabaseName = null;
+        while (databaseIterator.hasNext()) {
+            currentDatabaseName = databaseIterator.next();
+            log.fine(currentDatabaseName);
+            //xQuery here..
+        }
     }
 
     private void query(final String query) throws BaseXException {
-        //     LOG.fine(new XQuery(query).execute(context));
+            log.fine(new XQuery(query).execute(context));
     }
 
     public void fetch() throws BaseXException, MalformedURLException {
