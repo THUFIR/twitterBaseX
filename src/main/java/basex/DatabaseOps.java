@@ -6,6 +6,7 @@ import java.net.URL;
 import java.util.Iterator;
 import java.util.Properties;
 import java.util.logging.Logger;
+import main.App;
 import org.basex.core.BaseXException;
 import org.basex.core.Context;
 import org.basex.core.Databases;
@@ -14,7 +15,6 @@ import org.basex.core.cmd.DropDB;
 import org.basex.core.cmd.List;
 import org.basex.core.cmd.Set;
 import org.basex.core.cmd.XQuery;
-import twitter4j.JSONObject;
 import org.basex.build.json.JsonParser;
 import org.basex.core.MainOptions;
 import org.basex.io.IOFile;
@@ -28,15 +28,11 @@ public class DatabaseOps {
     private Context context = null;
     private String parserType = null;
 
-    private DatabaseOps() {
+    public DatabaseOps() {
     }
 
-    public DatabaseOps(Properties properties) {
-        this.properties = properties;
-        log.fine(properties.toString());
-    }
-
-    public void init() throws MalformedURLException, BaseXException {
+    public void init() throws MalformedURLException, BaseXException, IOException {
+        properties.loadFromXML(App.class.getResourceAsStream("/basex.xml"));
         parserType = properties.getProperty("parserType");
         url = new URL(properties.getProperty(parserType + "URL"));
         databaseName = properties.getProperty("databaseName");
@@ -77,7 +73,7 @@ public class DatabaseOps {
         log.fine(new XQuery(query).execute(context));
     }
 
-    public void fetch() throws BaseXException, MalformedURLException {
+    public void fetch() throws BaseXException, MalformedURLException, IOException {
         init();
         drop();
         create();
@@ -91,11 +87,12 @@ public class DatabaseOps {
         JsonParser jsonParser = new JsonParser(new IOFile(fileName), new MainOptions());
     }
 
-    public void addTweets(java.util.List<JSONObject> tweets) throws MalformedURLException, BaseXException {
+    public void loadTweets(String fileName) throws IOException {
         init();
         drop();
         create();
         infoOnDatabases();
+        parseJsonFile(fileName);
         context.close();
     }
 

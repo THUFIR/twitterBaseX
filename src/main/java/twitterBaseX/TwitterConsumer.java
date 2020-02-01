@@ -23,12 +23,12 @@ import twitter4j.TwitterFactory;
 import twitter4j.TwitterObjectFactory;
 import twitter4j.conf.ConfigurationBuilder;
 
-public class TwitterOps {
+public class TwitterConsumer {
 
-    private static final Logger log = Logger.getLogger(TwitterOps.class.getName());
+    private static final Logger log = Logger.getLogger(TwitterConsumer.class.getName());
     private List<JSONObject> tweets = new ArrayList<>();
 
-    public TwitterOps() {
+    public TwitterConsumer() {
     }
 
     private TwitterFactory configTwitterFactory() throws IOException {
