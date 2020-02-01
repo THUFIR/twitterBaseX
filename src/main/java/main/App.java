@@ -38,7 +38,7 @@ public class App {
         return tweets;
     }
 
-    private void twitterToBaseX() throws UnsupportedEncodingException, IOException {
+    private void twitterToBaseX() throws UnsupportedEncodingException, IOException, TwitterException, JSONException {
         List<JSONObject> tweets = getTweets();
         String fileName = "tweets.json";
         writeJsonToFile(fileName, tweets);
@@ -65,7 +65,7 @@ public class App {
         log.info("file has been read...");
     }
 
-    public static void main(String... args) throws IOException {
+    public static void main(String... args) throws IOException, UnsupportedEncodingException, TwitterException, JSONException {
         new App().twitterToBaseX();
     }
 
