@@ -3,16 +3,20 @@ package main;
 import basex.DatabaseOps;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.List;
 import java.util.Properties;
 import java.util.logging.Logger;
 import org.basex.core.BaseXException;
+import twitter4j.JSONException;
+import twitter4j.JSONObject;
+import twitter4j.TwitterException;
 import twitterBaseX.TwitterOps;
 
 public class App {
 
     private static final Logger log = Logger.getLogger(App.class.getName());
 
-    private void init() throws BaseXException, IOException, MalformedURLException {
+    private void basex() throws BaseXException, IOException, MalformedURLException {
         //    TwitterOps to = new TwitterOps(loadProperties("twitter"));
         Properties databaseProperties = new Properties();
         databaseProperties.loadFromXML(App.class.getResourceAsStream("/basex.xml"));
@@ -20,9 +24,11 @@ public class App {
         db.fetch();
     }
 
-    private void initb() throws IOException {
+    private void twitter() throws TwitterException, IOException, JSONException {
+        List<JSONObject> tweets = new TwitterOps().getTweets();
+    }
 
-        TwitterOps to = new TwitterOps();
+    private void init() {
     }
 
     public static void main(String... args) throws BaseXException, IOException, MalformedURLException {

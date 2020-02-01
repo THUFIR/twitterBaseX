@@ -1,6 +1,8 @@
 package twitterBaseX;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 import java.util.logging.Logger;
 import main.LoadProps;
@@ -23,10 +25,8 @@ public class TwitterOps {
     private static final Logger log = Logger.getLogger(TwitterOps.class.getName());
     private Properties properties = new Properties();
 
-   public TwitterOps() {
+    public TwitterOps() {
     }
-
-    
 
     private TwitterFactory configTwitterFactory() throws IOException {
         LoadProps loadTwitterProps = new LoadProps("twitter");
@@ -43,20 +43,23 @@ public class TwitterOps {
         return new TwitterFactory(configurationBuilder.build());
     }
 
-    private void twitterQueryResult() throws TwitterException, IOException, JSONException {
+    public List<JSONObject> getTweets() throws TwitterException, IOException, JSONException {
         Twitter twitter = configTwitterFactory().getInstance();
 
         Query query = new Query("lizardbill");
         QueryResult result = twitter.search(query);
         String string = null;
-        JSONObject JSON_complete = null;
+        JSONObject tweet = null;
+        List<JSONObject> tweets = new ArrayList<>();
+        
         for (Status status : result.getTweets()) {
-            jsonOps(status);
+            tweet = jsonOps(status);
+            tweets.add(tweet);
         }
-
+        return tweets;
     }
 
-    private void jsonOps(Status status) throws JSONException, BaseXException {
+    private JSONObject jsonOps(Status status) throws JSONException, BaseXException {
         String string = TwitterObjectFactory.getRawJSON(status);
         JSONObject json = new JSONObject(string);
         String language = json.getString("lang");
@@ -67,6 +70,7 @@ public class TwitterOps {
         new CreateDB("DBExample", "src/main/resources/xml/input.xml").execute(context);
 
         //    XMLResource res = (XMLResource) col.createResource(id, XMLResource.RESOURCE_TYPE);
+        return json;
     }
 
 }
