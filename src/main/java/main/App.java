@@ -27,29 +27,9 @@ public class App {
 
     private static final Logger log = Logger.getLogger(App.class.getName());
 
-    private void getTweets() throws TwitterException, IOException, JSONException {
+    private void getTweets(String user, String fileName) throws TwitterException, IOException, JSONException {
         TwitterOps to = new TwitterOps();
-        to.consumeTweets("lizardbill", "tweets.json");
-    }
-
-    private void twitterToBaseX() throws UnsupportedEncodingException, IOException, TwitterException, JSONException {
-        List<JSONObject> tweets = getTweets();
-        String fileName = "tweets.json";
-        writeJsonToFile(fileName, tweets);
-        baseX(fileName);
-    }
-
-    private void writeJsonToFile(String fileName, List<JSONObject> tweets) throws FileNotFoundException, UnsupportedEncodingException, IOException {
-        FileOutputStream fileOutputStream = null;
-        OutputStreamWriter outputStreamWriter = null;
-        BufferedWriter bufferedWriter = null;
-        fileOutputStream = new FileOutputStream(fileName);
-        outputStreamWriter = new OutputStreamWriter(fileOutputStream, "UTF-8");
-        bufferedWriter = new BufferedWriter(outputStreamWriter);
-        bufferedWriter.write(tweets.toString());
-        bufferedWriter.close();
-        outputStreamWriter.close();
-        fileOutputStream.close();
+        to.consumeTweets(user, fileName);
     }
 
     private void baseX(String fileName) throws MalformedURLException, BaseXException, IOException {
@@ -59,8 +39,12 @@ public class App {
         JsonParser jsonParser = new JsonParser(new IOFile(fileName), new MainOptions());
     }
 
+    private void twitterToBaseX() throws TwitterException, IOException, JSONException {
+        getTweets("lizardbill", "tweets.json");
+        baseX("tweets.json");
+    }
+
     public static void main(String... args) throws IOException, UnsupportedEncodingException, TwitterException, JSONException {
         new App().twitterToBaseX();
     }
-
 }
