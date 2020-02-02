@@ -89,7 +89,8 @@ public class DatabaseOps {
 
         new Set("parser", parserType).execute(context);
         //   new CreateDB(databaseName, url.toString()).execute(context);
-        new CreateDB(databaseName, xml);
+        new CreateDB(databaseName);
+        new CreateDB("fjsdkfjdskljdslfsd");
         new List().execute(context);
         list();
 
