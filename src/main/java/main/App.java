@@ -1,12 +1,10 @@
 package main;
 
 import basex.DatabaseOps;
-import basex.JsonToXmlTransformer;
 import java.io.IOException;
 import java.util.logging.Logger;
 import twitter4j.JSONException;
 import twitter4j.TwitterException;
-import twitterBaseX.TwitterConsumer;
 
 public class App {
 
@@ -18,11 +16,11 @@ public class App {
       //  TwitterConsumer twitterConsumer = new TwitterConsumer();
      //   twitterConsumer.consumeTweets(user, fileName);
 
-    //    DatabaseOps db = new DatabaseOps();
-    //    db.loadTweets(fileName);
+        DatabaseOps db = new DatabaseOps();
+      //  db.loadTweets(fileName);
         
-        JsonToXmlTransformer t = new JsonToXmlTransformer();
-        t.transform(fileName);
+      //  JsonToXmlTransformer t = new JsonToXmlTransformer();
+      //  t.transform(fileName);
     }
 
     public static void main(String... args) throws TwitterException, IOException, JSONException {

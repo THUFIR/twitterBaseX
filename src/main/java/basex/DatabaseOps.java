@@ -3,10 +3,14 @@ package basex;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.Properties;
 import java.util.logging.Logger;
 import main.App;
+import org.basex.build.xml.SAXWrapper;
 import org.basex.core.BaseXException;
 import org.basex.core.Context;
 import org.basex.core.Databases;
@@ -15,8 +19,8 @@ import org.basex.core.cmd.DropDB;
 import org.basex.core.cmd.List;
 import org.basex.core.cmd.Set;
 import org.basex.core.cmd.XQuery;
-import org.basex.build.json.JsonParser;
-import org.basex.core.MainOptions;
+import org.basex.core.cmd.Add;
+import org.basex.core.cmd.Open;
 import org.basex.io.IOFile;
 
 public class DatabaseOps {
@@ -83,8 +87,13 @@ public class DatabaseOps {
         context.close();
     }
 
-    private void parseJsonFile(String fileName) throws IOException {
-        JsonParser jsonParser = new JsonParser(new IOFile(fileName), new MainOptions());
+    private void transform(String fileName) throws IOException {
+        SAXWrapper xmlParser = org.basex.build.json.JsonParser.xmlParser(new IOFile(fileName));
+//        String content = new String(Files.readAllBytes(Paths.get(fileName)), StandardCharsets.UTF_8);
+        xmlParser.parse();
+        String xml = xmlParser.toString();
+        new Open(databaseName).execute(context);
+        new Add(null, xml);
     }
 
     public void loadTweets(String fileName) throws IOException {
@@ -92,7 +101,7 @@ public class DatabaseOps {
         drop();
         create();
         infoOnDatabases();
-        parseJsonFile(fileName);
+      //  transform(fileName);
         context.close();
     }
 
