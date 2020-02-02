@@ -24,6 +24,7 @@ repositories {
  //   maven { url "https://mvnrepository.com/" }
  //   maven { url "http://repo.evolvedbinary.com/content/repositories/exist-db/" }
     maven { url "https://raw.github.com/eXist-db/mvn-repo/master/" }
+    maven { url "https://mvnrepository.com/artifact/org.json/json" }
     jcenter()
 }
 
@@ -42,7 +43,7 @@ dependencies {
 
 
     // https://mvnrepository.com/artifact/org.json/json
-    compile group: 'org.json', name: 'json', version: '20190722'
+   // compile group: 'org.json', name: 'json', version: '20190722'
 
     
 }
