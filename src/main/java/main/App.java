@@ -1,6 +1,7 @@
 package main;
 
 import basex.DatabaseOps;
+import basex.JsonToXmlTransformer;
 import java.io.IOException;
 import java.util.logging.Logger;
 import twitter4j.JSONException;
@@ -19,6 +20,9 @@ public class App {
 
         DatabaseOps db = new DatabaseOps();
         db.loadTweets(fileName);
+        
+        JsonToXmlTransformer t = new JsonToXmlTransformer();
+        t.transform(fileName);
     }
 
     public static void main(String... args) throws TwitterException, IOException, JSONException {
