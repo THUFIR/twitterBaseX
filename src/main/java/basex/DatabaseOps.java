@@ -79,16 +79,20 @@ public class DatabaseOps {
     }
 
     private void transform(String fileName) throws IOException {
-        log.info("starting..");
         SAXWrapper xmlParser = org.basex.build.json.JsonParser.xmlParser(new IOFile(fileName));
 //        String content = new String(Files.readAllBytes(Paths.get(fileName)), StandardCharsets.UTF_8);
 
-        log.info("..parser created..");
-
         // xmlParser.parse();
         String xml = xmlParser.toString();
-     //   new Open(databaseName).execute(context);
-     //   new Add(null, xml);
+        //   new Open(databaseName).execute(context);
+        //   new Add(null, xml);
+
+        new Set("parser", parserType).execute(context);
+        //   new CreateDB(databaseName, url.toString()).execute(context);
+        new CreateDB(databaseName, xml);
+        new List().execute(context);
+        list();
+
     }
 
     public void loadTweets(String fileName) throws IOException {
