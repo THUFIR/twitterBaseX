@@ -3,6 +3,9 @@ package basex;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.Properties;
 import java.util.logging.Logger;
@@ -15,8 +18,6 @@ import org.basex.core.cmd.DropDB;
 import org.basex.core.cmd.List;
 import org.basex.core.cmd.Set;
 import org.basex.core.cmd.XQuery;
-import org.basex.core.cmd.Add;
-import org.basex.core.cmd.Open;
 import org.basex.io.IOFile;
 
 public class DatabaseOps {
@@ -82,18 +83,27 @@ public class DatabaseOps {
         SAXWrapper xmlParser = org.basex.build.json.JsonParser.xmlParser(new IOFile(fileName));
 //        String content = new String(Files.readAllBytes(Paths.get(fileName)), StandardCharsets.UTF_8);
 
-        // xmlParser.parse();
+        //   xmlParser.parse();
         String xml = xmlParser.toString();
+
+        //  log.info(xml);
         //   new Open(databaseName).execute(context);
         //   new Add(null, xml);
-
         new Set("parser", parserType).execute(context);
         //   new CreateDB(databaseName, url.toString()).execute(context);
-        new CreateDB(databaseName);
         new CreateDB("fjsdkfjdskljdslfsd");
         new List().execute(context);
         list();
 
+        String content = new String(Files.readAllBytes(Paths.get(fileName)), StandardCharsets.UTF_8);
+        org.json.JSONObject json = new org.json.JSONObject(content);
+        String foo = org.json.XML.toString(json);
+
+        new CreateDB("jfdsklfjdsklfjsdfklsjdf", foo);
+        new List().execute(context);
+        list();
+
+        log.info("...............done");
     }
 
     public void loadTweets(String fileName) throws IOException {
