@@ -1,6 +1,6 @@
 package main;
 
-import basex.DatabaseOps;
+import basex.DatabaseHelper;
 import java.io.IOException;
 import java.util.Properties;
 import java.util.logging.Logger;
@@ -20,8 +20,9 @@ public class App {
         Properties baseXprops = new Properties();
         baseXprops.loadFromXML(App.class.getResourceAsStream("/basex.xml"));
 
-        DatabaseOps db = new DatabaseOps(baseXprops);
-        db.loadTweets(fileName);
+        //   DatabaseOps db = new DatabaseOps(baseXprops);
+        DatabaseHelper db = new DatabaseHelper(baseXprops);
+      //  db.loadTweets(fileName);
     }
 
     public static void main(String... args) throws TwitterException, IOException, JSONException {
