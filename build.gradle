@@ -38,8 +38,11 @@ dependencies {
     compile group: 'org.basex', name: 'basex', version: '9.2.4'
     //compile group: 'net.sf.xmldb-org', name: 'xmldb-api', version: '1.7.0'
     // https://mvnrepository.com/artifact/org.exist-db/exist-core
-   // compile group: 'org.exist-db', name: 'exist-core', version: '5.2.0'
+    // compile group: 'org.exist-db', name: 'exist-core', version: '5.2.0'
 
+
+    // https://mvnrepository.com/artifact/org.json/json
+    compile group: 'org.json', name: 'json', version: '20190722'
 
     
 }
