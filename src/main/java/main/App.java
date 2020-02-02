@@ -15,11 +15,11 @@ public class App {
     private final String fileName = "tweets.json";
 
     private void twitterToBaseX() throws TwitterException, IOException, JSONException {
-        TwitterConsumer twitterConsumer = new TwitterConsumer();
-        twitterConsumer.consumeTweets(user, fileName);
+      //  TwitterConsumer twitterConsumer = new TwitterConsumer();
+     //   twitterConsumer.consumeTweets(user, fileName);
 
-        DatabaseOps db = new DatabaseOps();
-        db.loadTweets(fileName);
+    //    DatabaseOps db = new DatabaseOps();
+    //    db.loadTweets(fileName);
         
         JsonToXmlTransformer t = new JsonToXmlTransformer();
         t.transform(fileName);

@@ -1,13 +1,12 @@
 package basex;
 
-import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.logging.Logger;
-import org.basex.build.json.JsonParser;
 import org.basex.core.MainOptions;
 import org.basex.io.IOFile;
-import org.json.JSONObject;
-import org.json.XML;
 
 public class JsonToXmlTransformer {
 
@@ -16,15 +15,16 @@ public class JsonToXmlTransformer {
     public JsonToXmlTransformer() {
     }
 
-    private void baseXparseJsonFile(String fileName) throws IOException {
-        JsonParser jsonParser = new JsonParser(new IOFile(fileName), new MainOptions());
+    private void baseXparseJsonFile(String fileName) throws IOException   {
+        org.basex.build.json.JsonParser jsonParser = new org.basex.build.json.JsonParser(new IOFile(fileName), new MainOptions());
     }
 
-    public void transform(String fileName) {
-        File file = new File(fileName);
-        JSONObject json = new JSONObject(file);
-        String xml = XML.toString(json);
-        log.fine(xml);
-    }
+    public void transform(String fileName) throws IOException {
+//        File file = new File(fileName);
 
+        String content = new String(Files.readAllBytes(Paths.get(fileName)), StandardCharsets.UTF_8);
+
+        org.json.JSONObject json = new org.json.JSONObject(content);
+        log.info(org.json.XML.toString(json));
+    }
 }
