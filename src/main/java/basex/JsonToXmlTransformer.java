@@ -5,6 +5,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.logging.Logger;
+import org.basex.build.xml.SAXWrapper;
 import org.basex.core.MainOptions;
 import org.basex.io.IOFile;
 
@@ -15,9 +16,13 @@ public class JsonToXmlTransformer {
     public JsonToXmlTransformer() {
     }
 
-    private void baseXparseJsonFile(String fileName) throws IOException   {
+    private void baseXparseJsonFile(String fileName) throws IOException {
         org.basex.build.json.JsonParser jsonParser = new org.basex.build.json.JsonParser(new IOFile(fileName), new MainOptions());
-        //where is the xml?
+
+        SAXWrapper foo = org.basex.build.json.JsonParser.xmlParser(new IOFile(fileName));
+        foo.parse();
+        String bar = foo.toString();
+        log.info(bar);
     }
 
     public void transform(String fileName) throws IOException {
