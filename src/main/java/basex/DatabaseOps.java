@@ -6,7 +6,6 @@ import java.net.URL;
 import java.util.Iterator;
 import java.util.Properties;
 import java.util.logging.Logger;
-import main.App;
 import org.basex.build.xml.SAXWrapper;
 import org.basex.core.BaseXException;
 import org.basex.core.Context;
@@ -35,7 +34,7 @@ public class DatabaseOps {
 
     public DatabaseOps(Properties properties) {
         this.properties = properties;
-          }
+    }
 
     private void init() throws MalformedURLException, BaseXException, IOException {
         parserType = properties.getProperty("parserType");
@@ -57,7 +56,8 @@ public class DatabaseOps {
 
     private void create() throws BaseXException {
         new Set("parser", parserType).execute(context);
-        new CreateDB(databaseName, url.toString()).execute(context);
+        //   new CreateDB(databaseName, url.toString()).execute(context);
+        new CreateDB(databaseName, null);
         new List().execute(context);
         list();
     }
@@ -79,12 +79,16 @@ public class DatabaseOps {
     }
 
     private void transform(String fileName) throws IOException {
+        log.info("starting..");
         SAXWrapper xmlParser = org.basex.build.json.JsonParser.xmlParser(new IOFile(fileName));
 //        String content = new String(Files.readAllBytes(Paths.get(fileName)), StandardCharsets.UTF_8);
-        xmlParser.parse();
+
+        log.info("..parser created..");
+
+        // xmlParser.parse();
         String xml = xmlParser.toString();
-        new Open(databaseName).execute(context);
-        new Add(null, xml);
+     //   new Open(databaseName).execute(context);
+     //   new Add(null, xml);
     }
 
     public void loadTweets(String fileName) throws IOException {
@@ -92,7 +96,7 @@ public class DatabaseOps {
         drop();
         create();
         infoOnDatabases();
-        //  transform(fileName);
+        transform(fileName);
         context.close();
     }
 
