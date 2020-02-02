@@ -1,5 +1,6 @@
 package basex;
 
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Properties;
@@ -27,16 +28,16 @@ public class DatabaseHelper {
         log.info(properties.toString());
     }
 
-    private void transform(String fileName)  {
+    public void transform(String fileName) throws IOException {
 
-      //  BaseXClient session = new BaseXClient("localhost", 1984, "admin", "admin");
-       
+        // org.basex.BaseXClient session = new org.basex.BaseXClient("localhost", "1984", "admin", "admin");
+   //     org.basex.BaseXClient session = new org.basex.BaseXClient("localhost", 1984, "admin", "admin");
+
         //session.execute("create db database");
-
-      //  context = new Context();
-    //    new CreateDB("jfdsklfjdsklfjsdfklsjdf", properties.getProperty("dataPath"));
-   //     new List().execute(context);
-   //     log.info(new List().execute(context));
+        //  context = new Context();
+        //    new CreateDB("jfdsklfjdsklfjsdfklsjdf", properties.getProperty("dataPath"));
+        //     new List().execute(context);
+        //     log.info(new List().execute(context));
     }
 
 }

@@ -17,12 +17,12 @@ public class App {
         //  TwitterConsumer twitterConsumer = new TwitterConsumer();
         //   twitterConsumer.consumeTweets(user, fileName);
 
-        Properties baseXprops = new Properties();
-        baseXprops.loadFromXML(App.class.getResourceAsStream("/basex.xml"));
+      //  Properties baseXprops = new Properties();
+      //  baseXprops.loadFromXML(App.class.getResourceAsStream("/basex.xml"));
 
         //   DatabaseOps db = new DatabaseOps(baseXprops);
-        DatabaseHelper db = new DatabaseHelper(baseXprops);
-      //  db.loadTweets(fileName);
+      //  DatabaseHelper db = new DatabaseHelper(baseXprops);
+      //  db.transform(fileName);
     }
 
     public static void main(String... args) throws TwitterException, IOException, JSONException {
