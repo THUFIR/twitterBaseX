@@ -3,9 +3,6 @@ package basex;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Iterator;
 import java.util.Properties;
 import java.util.logging.Logger;
@@ -31,12 +28,16 @@ public class DatabaseOps {
     private String databaseName = null;
     private Context context = null;
     private String parserType = null;
+    private String stringQuery = "//note/body/text()";
 
-    public DatabaseOps() {
+    private DatabaseOps() {
     }
 
-    public void init() throws MalformedURLException, BaseXException, IOException {
-        properties.loadFromXML(App.class.getResourceAsStream("/basex.xml"));
+    public DatabaseOps(Properties properties) {
+        this.properties = properties;
+          }
+
+    private void init() throws MalformedURLException, BaseXException, IOException {
         parserType = properties.getProperty("parserType");
         url = new URL(properties.getProperty(parserType + "URL"));
         databaseName = properties.getProperty("databaseName");
@@ -77,16 +78,6 @@ public class DatabaseOps {
         log.fine(new XQuery(query).execute(context));
     }
 
-    public void fetch() throws BaseXException, MalformedURLException, IOException {
-        init();
-        drop();
-        create();
-        infoOnDatabases();
-        list();
-        query("//note/body/text()");
-        context.close();
-    }
-
     private void transform(String fileName) throws IOException {
         SAXWrapper xmlParser = org.basex.build.json.JsonParser.xmlParser(new IOFile(fileName));
 //        String content = new String(Files.readAllBytes(Paths.get(fileName)), StandardCharsets.UTF_8);
@@ -101,16 +92,8 @@ public class DatabaseOps {
         drop();
         create();
         infoOnDatabases();
-      //  transform(fileName);
+        //  transform(fileName);
         context.close();
     }
 
 }
-
-
-/*
-
-               // create session
-               final BaseXClient session = new BaseXClient("localhost", 1984, "admin", "admin");
-               System.out.println(session.execute("info"));
- */

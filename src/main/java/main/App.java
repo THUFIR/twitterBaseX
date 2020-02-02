@@ -2,6 +2,7 @@ package main;
 
 import basex.DatabaseOps;
 import java.io.IOException;
+import java.util.Properties;
 import java.util.logging.Logger;
 import twitter4j.JSONException;
 import twitter4j.TwitterException;
@@ -13,14 +14,14 @@ public class App {
     private final String fileName = "tweets.json";
 
     private void twitterToBaseX() throws TwitterException, IOException, JSONException {
-      //  TwitterConsumer twitterConsumer = new TwitterConsumer();
-     //   twitterConsumer.consumeTweets(user, fileName);
+        //  TwitterConsumer twitterConsumer = new TwitterConsumer();
+        //   twitterConsumer.consumeTweets(user, fileName);
 
-        DatabaseOps db = new DatabaseOps();
-      //  db.loadTweets(fileName);
-        
-      //  JsonToXmlTransformer t = new JsonToXmlTransformer();
-      //  t.transform(fileName);
+        Properties baseXprops = new Properties();
+        baseXprops.loadFromXML(App.class.getResourceAsStream("/basex.xml"));
+
+        DatabaseOps db = new DatabaseOps(baseXprops);
+        db.loadTweets(fileName);
     }
 
     public static void main(String... args) throws TwitterException, IOException, JSONException {
