@@ -12,9 +12,9 @@ public class App {
     private final String user = "lizardbill";
     private final String fileName = "tweets.json";
 
-    private void twitterToBaseX() throws TwitterException, IOException, JSONException  {
+    private void twitterToBaseX() throws TwitterException, IOException, JSONException {
         TwitterConsumer twitterConsumer = new TwitterConsumer();
-        twitterConsumer.consumeTweets(user, fileName);
+        twitter4j.JSONObject foo = twitterConsumer.consumeTweets(user, fileName);
 
         //  Properties baseXprops = new Properties();
         //  baseXprops.loadFromXML(App.class.getResourceAsStream("/basex.xml"));
