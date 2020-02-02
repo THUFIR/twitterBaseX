@@ -17,13 +17,11 @@ public class JsonToXmlTransformer {
 
     private void baseXparseJsonFile(String fileName) throws IOException   {
         org.basex.build.json.JsonParser jsonParser = new org.basex.build.json.JsonParser(new IOFile(fileName), new MainOptions());
+        //where is the xml?
     }
 
     public void transform(String fileName) throws IOException {
-//        File file = new File(fileName);
-
         String content = new String(Files.readAllBytes(Paths.get(fileName)), StandardCharsets.UTF_8);
-
         org.json.JSONObject json = new org.json.JSONObject(content);
         log.info(org.json.XML.toString(json));
     }
