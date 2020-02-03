@@ -56,19 +56,22 @@ public class DatabaseHelper {
         twitter4j.JSONObject jsonTweet = null;
         org.json.JSONObject foo = null;
         String jsonStringTweet = null;
+        JSONArray jsonArray = null;
 
         while (keys.hasNext()) {
             id = Long.parseLong(keys.next().toString());
             log.info(Long.toString(id));
             jsonTweet = tweets.getJSONObject(Long.toString(id));
             jsonStringTweet = jsonTweet.toString();
-            log.info(jsonStringTweet);
+            log.fine(jsonStringTweet);
             //    foo = new org.json.JSONObject("jsonStringTweet");
             xmlStringTweet = XML.toString(jsonTweet);
             log.fine(jsonTweet.toString());
             log.fine(xmlStringTweet);
 
-            JSONArray jsonArray = new JSONArray(jsonTweet);
+            jsonArray = new JSONArray();
+            jsonArray.put(jsonTweet);
+            log.info(jsonArray.toString());
 //            new Add(null, xmlStringTweet).execute(context);
         }
     }
