@@ -21,7 +21,6 @@ public class App {
         Properties baseXprops = new Properties();
         baseXprops.loadFromXML(App.class.getResourceAsStream("/basex.xml"));
         DatabaseHelper db = new DatabaseHelper(baseXprops);
-        db.transform(fileName);
         db.persist(foo);
     }
 

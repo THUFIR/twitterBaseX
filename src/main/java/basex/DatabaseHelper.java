@@ -29,17 +29,6 @@ public class DatabaseHelper {
         log.info(properties.toString());
     }
     
-    public void transform(String fileName) throws IOException {
-
-        // org.basex.BaseXClient session = new org.basex.BaseXClient("localhost", "1984", "admin", "admin");
-        //     org.basex.BaseXClient session = new org.basex.BaseXClient("localhost", 1984, "admin", "admin");
-        //session.execute("create db database");
-        //  context = new Context();
-        //    new CreateDB("jfdsklfjdsklfjsdfklsjdf", properties.getProperty("dataPath"));
-        //     new List().execute(context);
-        //     log.info(new List().execute(context));
-    }
-    
     public void persist(JSONObject foo) {
         log.info(foo.toString());
     }
