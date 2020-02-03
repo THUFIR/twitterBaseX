@@ -11,6 +11,7 @@ import org.basex.core.cmd.CreateDB;
 import org.basex.core.cmd.DropDB;
 import org.basex.core.cmd.List;
 import org.basex.core.cmd.Set;
+import org.json.XML;
 import twitter4j.JSONArray;
 import twitter4j.JSONException;
 import twitter4j.JSONObject;
@@ -50,16 +51,18 @@ public class DatabaseHelper {
         long id = 0L;
         String xmlStringTweet = null;
         new Open(databaseName).execute(context);
-        twitter4j.JSONObject jsonTweet = null;
-        org.json.JSONObject foo = null;
+        org.json.JSONObject jsonTweet = null;
         String jsonStringTweet = null;
         JSONArray jsonArray = null;
+        String xml = null;
 
        // int myJsonArraySize = tweets.size();
 
         for (int i = 0; i < tweets.length(); i++) {
             jsonStringTweet = tweets.get(i).toString();
-            log.fine(jsonStringTweet);
+            jsonTweet = new org.json.JSONObject(jsonStringTweet);
+            xml = XML.toString(jsonTweet);
+            log.info(xml);
         }
     }
 
