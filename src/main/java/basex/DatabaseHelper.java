@@ -70,7 +70,7 @@ public class DatabaseHelper {
             jsonObjectTweet = new org.json.JSONObject(jsonStringTweet);
             stringXml = XML.toString(jsonObjectTweet);
             log.info(stringXml);
-            new Add(null, stringXml).execute(context);
+            new Add(null, "data.xml").execute(context);
         }
     }
 
