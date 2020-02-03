@@ -87,10 +87,6 @@ public class TwitterConsumer {
         return json;
     }
 
-    private void xml(JSONObject tweet) {
-     //   String foo = XML.toString(tweet);
-    }
-
     public void writeJsonToFile(String fileName, List<JSONObject> tweets) {
         try (Writer fileWriter = new FileWriter(fileName)) {
             fileWriter.write(tweets.toString());

@@ -1,5 +1,8 @@
 package basex;
 
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Properties;
@@ -15,6 +18,9 @@ import org.basex.core.cmd.Set;
 import org.json.XML;
 import twitter4j.JSONArray;
 import twitter4j.JSONException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class DatabaseHelper {
 
@@ -30,6 +36,15 @@ public class DatabaseHelper {
 
     public DatabaseHelper(Properties properties) {
         this.properties = properties;
+    }
+
+    private String wrap(String string) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+        stringBuilder.append("<root>");
+        stringBuilder.append(string);
+        stringBuilder.append("</root>");
+        return stringBuilder.toString();
     }
 
     private void init() throws MalformedURLException, BaseXException {
@@ -58,7 +73,7 @@ public class DatabaseHelper {
         list();
     }
 
-    private void add(JSONArray tweets) throws JSONException, BaseXException {
+    private void add(JSONArray tweets) throws JSONException, BaseXException, IOException {
         long id = 0L;
         String jsonStringTweet = null;
         org.json.JSONObject jsonObjectTweet = null;
@@ -69,12 +84,15 @@ public class DatabaseHelper {
             jsonStringTweet = tweets.get(i).toString();
             jsonObjectTweet = new org.json.JSONObject(jsonStringTweet);
             stringXml = XML.toString(jsonObjectTweet);
-            log.info(stringXml);
-            new Add(null, "data.xml").execute(context);
+            stringXml = wrap(stringXml);
+            write(jsonStringTweet);
+            String foo = read("tweet.json");
+            log.info(foo);
+//            new Add(null, stringXml).execute(context);
         }
     }
 
-    public void dropCreateAdd(JSONArray tweets) throws MalformedURLException, BaseXException, JSONException {
+    public void dropCreateAdd(JSONArray tweets) throws MalformedURLException, BaseXException, JSONException, IOException {
         init();
         drop();
         create();
@@ -82,4 +100,15 @@ public class DatabaseHelper {
         list();
     }
 
+    private void write(String string) throws IOException {
+        log.fine(string);
+        FileWriter fileWriter = new FileWriter("tweet.json");
+        fileWriter.write(string);
+        fileWriter.close();
+    }
+
+    private String read(String fileName) throws IOException {
+        String content = new String(Files.readAllBytes(Paths.get(fileName)), StandardCharsets.UTF_8);
+        return content;
+    }
 }
