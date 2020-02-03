@@ -1,14 +1,11 @@
 package main;
 
 import basex.DatabaseHelper;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.Writer;
 import java.util.Properties;
 import java.util.logging.Logger;
 import twitter4j.JSONException;
 import twitter4j.TwitterException;
-import twitterBaseX.TwitterConsumer;
 
 public class App {
 

@@ -45,10 +45,15 @@ public class DatabaseHelper {
     }
 
     private void create(String fileName) throws BaseXException {
+        new Set("parser", parserType).execute(context);
         log.info(databaseName);
         log.info(fileName);
-       new Set("parser", parserType).execute(context);
-        CreateDB createDB = new CreateDB(databaseName, fileName);
+        String filePath = properties.getProperty("jsonData");
+        log.info(filePath);
+        //    CreateDB createDB = new CreateDB(databaseName, filePath);
+//        new CreateDB(databaseName, url.toString()).execute(context);
+//        new CreateDB(databaseName, url.toString()).execute(context);
+        CreateDB createDB = new CreateDB(databaseName, filePath);
         new List().execute(context);
         list();
     }
