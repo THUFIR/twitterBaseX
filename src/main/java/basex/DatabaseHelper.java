@@ -2,7 +2,6 @@ package basex;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Iterator;
 import java.util.Properties;
 import java.util.logging.Logger;
 import org.basex.core.BaseXException;
@@ -12,7 +11,6 @@ import org.basex.core.cmd.CreateDB;
 import org.basex.core.cmd.DropDB;
 import org.basex.core.cmd.List;
 import org.basex.core.cmd.Set;
-import org.json.XML;
 import twitter4j.JSONArray;
 import twitter4j.JSONException;
 import twitter4j.JSONObject;
@@ -50,7 +48,6 @@ public class DatabaseHelper {
 
     private void add(JSONArray tweets) throws JSONException, BaseXException {
         long id = 0L;
-    //    Iterator keys = tweets.keys();
         String xmlStringTweet = null;
         new Open(databaseName).execute(context);
         twitter4j.JSONObject jsonTweet = null;
@@ -58,23 +55,13 @@ public class DatabaseHelper {
         String jsonStringTweet = null;
         JSONArray jsonArray = null;
 
-      //  while (keys.hasNext()) {
-       //     id = Long.parseLong(keys.next().toString());
-      //      log.info(Long.toString(id));
-         //   jsonTweet = tweets.getJSONObject(Long.toString(id));
-       //     jsonStringTweet = jsonTweet.toString();
-      //      log.fine(jsonStringTweet);
-            //    foo = new org.json.JSONObject("jsonStringTweet");
-       //     xmlStringTweet = XML.toString(jsonTweet);
-      //      log.fine(jsonTweet.toString());
-      //      log.fine(xmlStringTweet);
+       // int myJsonArraySize = tweets.size();
 
-      //      jsonArray = new JSONArray();
-      //      jsonArray.put(jsonTweet);
-      //      log.info(jsonArray.toString());
-//            new Add(null, xmlStringTweet).execute(context);
+        for (int i = 0; i < tweets.length(); i++) {
+            jsonStringTweet = tweets.get(i).toString();
+            log.info(jsonStringTweet);
         }
-    
+    }
 
     private void add(JSONObject tweets) throws JSONException, BaseXException {
         /*
@@ -118,7 +105,7 @@ public class DatabaseHelper {
         log.fine(new List().execute(context));
     }
 
-    public void dropCreateAdd(JSONObject tweets) throws MalformedURLException, BaseXException, JSONException {
+    public void dropCreateAdd(JSONArray tweets) throws MalformedURLException, BaseXException, JSONException {
         init();
         drop();
         create();
