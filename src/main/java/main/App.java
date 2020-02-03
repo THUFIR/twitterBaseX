@@ -17,14 +17,6 @@ public class App {
     private void twitterToBaseX() throws TwitterException, IOException, JSONException {
         TwitterConsumer twitterConsumer = new TwitterConsumer();
         twitter4j.JSONObject tweets = twitterConsumer.consumeTweets(user, fileName);
-
-        //JSONObject tweets = new JSONObject();
-
-        //Writer fileWriter = new FileWriter(fileName);
- //       fileWriter.write(tweets.toString());
-   //     fileWriter.close();
-
-   
    
         Properties baseXprops = new Properties();
         baseXprops.loadFromXML(App.class.getResourceAsStream("/basex.xml"));
