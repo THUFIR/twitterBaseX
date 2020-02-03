@@ -16,12 +16,12 @@ public class App {
 
     private void twitterToBaseX() throws TwitterException, IOException, JSONException {
         TwitterConsumer twitterConsumer = new TwitterConsumer();
-        twitter4j.JSONObject foo = twitterConsumer.consumeTweets(user, fileName);
+        twitter4j.JSONObject tweets = twitterConsumer.consumeTweets(user, fileName);
 
         Properties baseXprops = new Properties();
         baseXprops.loadFromXML(App.class.getResourceAsStream("/basex.xml"));
         DatabaseHelper db = new DatabaseHelper(baseXprops);
-        db.persist(foo);
+        db.persist(tweets);
     }
 
     public static void main(String... args) throws TwitterException, IOException, JSONException {
