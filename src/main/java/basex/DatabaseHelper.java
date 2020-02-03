@@ -68,7 +68,7 @@ public class DatabaseHelper {
             Object key = keys.next();
             String s = key.toString();
             id = Long.parseLong(s);
-            log.info(Long.toString(id));
+            log.info("long\t\t" + Long.toString(id));
         }
     }
 
