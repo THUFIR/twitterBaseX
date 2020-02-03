@@ -6,6 +6,7 @@ import java.util.Properties;
 import java.util.logging.Logger;
 import org.basex.core.BaseXException;
 import org.basex.core.Context;
+import org.basex.core.cmd.Add;
 import org.basex.core.cmd.Open;
 import org.basex.core.cmd.CreateDB;
 import org.basex.core.cmd.DropDB;
@@ -50,19 +51,17 @@ public class DatabaseHelper {
     private void add(JSONArray tweets) throws JSONException, BaseXException {
         long id = 0L;
         String xmlStringTweet = null;
-        new Open(databaseName).execute(context);
         org.json.JSONObject jsonTweet = null;
         String jsonStringTweet = null;
-        JSONArray jsonArray = null;
         String xml = null;
 
-       // int myJsonArraySize = tweets.size();
-
+        new Open(databaseName).execute(context);
         for (int i = 0; i < tweets.length(); i++) {
             jsonStringTweet = tweets.get(i).toString();
             jsonTweet = new org.json.JSONObject(jsonStringTweet);
             xml = XML.toString(jsonTweet);
             log.info(xml);
+            new Add(null, xml).execute(context);
         }
     }
 
