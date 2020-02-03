@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.xml.crypto.dsig.XMLObject;
 import main.LoadProps;
 import org.basex.core.BaseXException;
 import twitter4j.JSONException;

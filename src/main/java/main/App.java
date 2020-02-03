@@ -1,6 +1,8 @@
 package main;
 
+import basex.DatabaseHelper;
 import java.io.IOException;
+import java.util.Properties;
 import java.util.logging.Logger;
 import twitter4j.JSONException;
 import twitter4j.TwitterException;
@@ -16,11 +18,11 @@ public class App {
         TwitterConsumer twitterConsumer = new TwitterConsumer();
         twitter4j.JSONObject foo = twitterConsumer.consumeTweets(user, fileName);
 
-        //  Properties baseXprops = new Properties();
-        //  baseXprops.loadFromXML(App.class.getResourceAsStream("/basex.xml"));
-        //   DatabaseOps db = new DatabaseOps(baseXprops);
-        //  DatabaseHelper db = new DatabaseHelper(baseXprops);
-        //  db.transform(fileName);
+        Properties baseXprops = new Properties();
+        baseXprops.loadFromXML(App.class.getResourceAsStream("/basex.xml"));
+        DatabaseHelper db = new DatabaseHelper(baseXprops);
+        db.transform(fileName);
+        db.persist(foo);
     }
 
     public static void main(String... args) throws TwitterException, IOException, JSONException {
