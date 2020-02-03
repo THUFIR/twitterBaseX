@@ -25,7 +25,6 @@ public class DatabaseHelper {
     private String databaseName = null;
     private Context context = null;
     private String parserType = null;
-    private String stringQuery = "//note/body/text()";
 
     private DatabaseHelper() {
     }
@@ -49,59 +48,36 @@ public class DatabaseHelper {
         list();
     }
 
-    private void create(String fileName) throws BaseXException {
-        new Set("parser", parserType).execute(context);
-        log.fine(databaseName);
-        log.fine(fileName);
-        String filePath = properties.getProperty("jsonData");
-        log.fine(filePath);
-        //    CreateDB createDB = new CreateDB(databaseName, filePath);
-//        new CreateDB(databaseName, url.toString()).execute(context);
-//        new CreateDB(databaseName, url.toString()).execute(context);
-        CreateDB createDB = new CreateDB(databaseName, filePath);
-        new List().execute(context);
-        list();
-    }
-
-    private void iterate(JSONObject tweets) throws JSONException, BaseXException {
+    private void add(JSONObject tweets) throws JSONException, BaseXException {
         String stringXml = XML.toString(tweets);
         long id = 0L;
         Iterator keys = tweets.keys();
         String xmlStringTweet = null;
+        new Open(databaseName).execute(context);
         while (keys.hasNext()) {
             id = Long.parseLong(keys.next().toString());
             JSONObject tweet = tweets.getJSONObject(Long.toString(id));
             xmlStringTweet = XML.toString(tweet);
-            new Open(databaseName);
             new Add("", xmlStringTweet).execute(context);
         }
     }
 
-    private void create(JSONObject json) throws BaseXException, JSONException {
+    private void create() throws BaseXException, JSONException {
         new Set("parser", parserType).execute(context);
-        String s = json.toString();
-        CreateDB createDB = new CreateDB(databaseName);
+        new CreateDB(databaseName).execute(context);
         new List().execute(context);
         list();
-        iterate(json);
     }
 
     private void list() throws BaseXException {
         log.info(new List().execute(context));
     }
 
-    public void persist(JSONObject json) throws MalformedURLException, BaseXException, JSONException {
+    public void persist(JSONObject tweets) throws MalformedURLException, BaseXException, JSONException {
         init();
         drop();
-        create(json);
-        log.fine(json.toString());
-    }
-
-    public void persist(String fileName) throws MalformedURLException, BaseXException {
-        init();
-        drop();
-        create(fileName);
-        //  log.fine(json.toString());
+        create();
+        add(tweets);
     }
 
 }
