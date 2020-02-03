@@ -59,7 +59,7 @@ public class DatabaseHelper {
 
         for (int i = 0; i < tweets.length(); i++) {
             jsonStringTweet = tweets.get(i).toString();
-            log.info(jsonStringTweet);
+            log.fine(jsonStringTweet);
         }
     }
 
