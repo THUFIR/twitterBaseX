@@ -21,7 +21,7 @@ public class App {
         Properties baseXprops = new Properties();
         baseXprops.loadFromXML(App.class.getResourceAsStream("/basex.xml"));
         DatabaseHelper db = new DatabaseHelper(baseXprops);
-        db.persist(tweets);
+        db.dropCreateAdd(tweets);
     }
 
     public static void main(String... args) throws TwitterException, IOException, JSONException {

@@ -49,19 +49,25 @@ public class DatabaseHelper {
     }
 
     private void add(JSONObject tweets) throws JSONException, BaseXException {
-        String stringXml = XML.toString(tweets);
         long id = 0L;
         Iterator keys = tweets.keys();
         String xmlStringTweet = null;
         new Open(databaseName).execute(context);
+        twitter4j.JSONObject jsonTweet = null;
+        org.json.JSONObject foo = null;
+        String jsonStringTweet = null;
+
         while (keys.hasNext()) {
             id = Long.parseLong(keys.next().toString());
-            JSONObject jsonTweet = tweets.getJSONObject(Long.toString(id));
             log.info(Long.toString(id));
-            log.info(jsonTweet.toString());
+            jsonTweet = tweets.getJSONObject(Long.toString(id));
+            jsonStringTweet = jsonTweet.toString();
+            log.info(jsonStringTweet);
+        //    foo = new org.json.JSONObject("jsonStringTweet");
             xmlStringTweet = XML.toString(jsonTweet);
-            log.fine(stringXml);
-         //   new Add(databaseName, xmlStringTweet).execute(context);
+            log.fine(jsonTweet.toString());
+            log.fine(xmlStringTweet);
+//            new Add(null, xmlStringTweet).execute(context);
         }
     }
 
@@ -73,14 +79,15 @@ public class DatabaseHelper {
     }
 
     private void list() throws BaseXException {
-        log.info(new List().execute(context));
+        log.fine(new List().execute(context));
     }
 
-    public void persist(JSONObject tweets) throws MalformedURLException, BaseXException, JSONException {
+    public void dropCreateAdd(JSONObject tweets) throws MalformedURLException, BaseXException, JSONException {
         init();
         drop();
         create();
         add(tweets);
+        list();
     }
 
 }
