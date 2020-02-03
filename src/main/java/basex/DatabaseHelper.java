@@ -77,7 +77,7 @@ public class DatabaseHelper {
         String jsonStringTweet = null;
         org.json.JSONObject jsonObjectTweet = null;
         String stringXml = null;
-        String fileName = "tweet.xml";
+        String fileName = "tweet.json";
         
         new Open(databaseName).execute(context);
         for (int i = 0; i < tweets.length(); i++) {
