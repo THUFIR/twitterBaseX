@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import main.LoadProps;
 import org.basex.core.BaseXException;
+import twitter4j.JSONArray;
 import twitter4j.JSONException;
 import twitter4j.JSONObject;
 import twitter4j.Query;
@@ -24,7 +25,7 @@ public class TwitterConsumer {
 
     private static final Logger log = Logger.getLogger(TwitterConsumer.class.getName());
 //    private List<JSONObject> tweets = new ArrayList<>();
-    private JSONObject tweets = new JSONObject();
+    private JSONArray tweets = new JSONArray();
 
     public TwitterConsumer() {
     }
@@ -54,10 +55,11 @@ public class TwitterConsumer {
     private void populateTweets(Status status) throws JSONException {
         JSONObject tweet = getTweetFromStatus(status);
         long l = (long) tweet.get("id");
-        tweets.put(Long.toString(l), tweet);
+//        tweets.put(Long.toString(l), tweet);
+        tweets.put(tweet);
     }
 
-    public JSONObject consumeTweets(String user, String fileName) throws TwitterException, JSONException, NumberFormatException, IOException {
+    public JSONArray consumeTweets(String user, String fileName) throws TwitterException, JSONException, NumberFormatException, IOException {
         Twitter twitter = configTwitterFactory().getInstance();
 
         Query query = new Query(user);
