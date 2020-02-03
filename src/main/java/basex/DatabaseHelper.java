@@ -48,7 +48,36 @@ public class DatabaseHelper {
         list();
     }
 
+    private void add(JSONArray tweets) throws JSONException, BaseXException {
+        long id = 0L;
+    //    Iterator keys = tweets.keys();
+        String xmlStringTweet = null;
+        new Open(databaseName).execute(context);
+        twitter4j.JSONObject jsonTweet = null;
+        org.json.JSONObject foo = null;
+        String jsonStringTweet = null;
+        JSONArray jsonArray = null;
+
+      //  while (keys.hasNext()) {
+       //     id = Long.parseLong(keys.next().toString());
+      //      log.info(Long.toString(id));
+         //   jsonTweet = tweets.getJSONObject(Long.toString(id));
+       //     jsonStringTweet = jsonTweet.toString();
+      //      log.fine(jsonStringTweet);
+            //    foo = new org.json.JSONObject("jsonStringTweet");
+       //     xmlStringTweet = XML.toString(jsonTweet);
+      //      log.fine(jsonTweet.toString());
+      //      log.fine(xmlStringTweet);
+
+      //      jsonArray = new JSONArray();
+      //      jsonArray.put(jsonTweet);
+      //      log.info(jsonArray.toString());
+//            new Add(null, xmlStringTweet).execute(context);
+        }
+    
+
     private void add(JSONObject tweets) throws JSONException, BaseXException {
+        /*
         long id = 0L;
         Iterator keys = tweets.keys();
         String xmlStringTweet = null;
@@ -74,6 +103,8 @@ public class DatabaseHelper {
             log.info(jsonArray.toString());
 //            new Add(null, xmlStringTweet).execute(context);
         }
+
+         */
     }
 
     private void create() throws BaseXException, JSONException {
