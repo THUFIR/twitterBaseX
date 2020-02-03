@@ -6,7 +6,10 @@ import java.util.Properties;
 import java.util.logging.Logger;
 import org.basex.core.BaseXException;
 import org.basex.core.Context;
+import org.basex.core.cmd.CreateDB;
+import org.basex.core.cmd.DropDB;
 import org.basex.core.cmd.List;
+import org.basex.core.cmd.Set;
 import twitter4j.JSONObject;
 
 public class DatabaseHelper {
@@ -34,13 +37,28 @@ public class DatabaseHelper {
         list();
     }
 
-    public void persist(JSONObject json) throws MalformedURLException, BaseXException {
-        init();
-        log.fine(json.toString());
+    private void drop() throws BaseXException {
+        new Set("parser", parserType).execute(context);
+        new DropDB(databaseName).execute(context);
+        list();
+    }
+
+    private void create() throws BaseXException {
+        new Set("parser", parserType).execute(context);
+        //   new CreateDB(databaseName, url.toString()).execute(context);
+        new CreateDB(databaseName, null);
+        new List().execute(context);
+        list();
     }
 
     private void list() throws BaseXException {
-                log.info(new List().execute(context));
+        log.info(new List().execute(context));
     }
 
+    public void persist(JSONObject json) throws MalformedURLException, BaseXException {
+        init();
+        drop();
+        create();
+        log.fine(json.toString());
+    }
 }

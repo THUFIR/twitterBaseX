@@ -5,8 +5,8 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.logging.Logger;
 import twitter4j.JSONException;
+import twitter4j.JSONObject;
 import twitter4j.TwitterException;
-import twitterBaseX.TwitterConsumer;
 
 public class App {
 
@@ -15,8 +15,10 @@ public class App {
     private final String fileName = "tweets.json";
 
     private void twitterToBaseX() throws TwitterException, IOException, JSONException {
-        TwitterConsumer twitterConsumer = new TwitterConsumer();
-        twitter4j.JSONObject tweets = twitterConsumer.consumeTweets(user, fileName);
+        //      TwitterConsumer twitterConsumer = new TwitterConsumer();
+        //      twitter4j.JSONObject tweets = twitterConsumer.consumeTweets(user, fileName);
+
+        JSONObject tweets = new JSONObject();
 
         Properties baseXprops = new Properties();
         baseXprops.loadFromXML(App.class.getResourceAsStream("/basex.xml"));
