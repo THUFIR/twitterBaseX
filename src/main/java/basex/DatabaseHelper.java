@@ -61,14 +61,14 @@ public class DatabaseHelper {
     }
 
     private void iterate(JSONObject json) {
-        log.info("----------------------------------------------------------------------------");
         String stringXml = XML.toString(json);
-        long l = 123L;
+        long id = 0L;
         Iterator keys = json.keys();
-
         while (keys.hasNext()) {
             Object key = keys.next();
-            log.info(key.toString());
+            String s = key.toString();
+            id = Long.parseLong(s);
+            log.info(Long.toString(id));
         }
     }
 
