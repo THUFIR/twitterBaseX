@@ -7,13 +7,13 @@ import java.util.Properties;
 import java.util.logging.Logger;
 import org.basex.core.BaseXException;
 import org.basex.core.Context;
-import org.basex.core.cmd.Add;
 import org.basex.core.cmd.Open;
 import org.basex.core.cmd.CreateDB;
 import org.basex.core.cmd.DropDB;
 import org.basex.core.cmd.List;
 import org.basex.core.cmd.Set;
 import org.json.XML;
+import twitter4j.JSONArray;
 import twitter4j.JSONException;
 import twitter4j.JSONObject;
 
@@ -63,10 +63,12 @@ public class DatabaseHelper {
             jsonTweet = tweets.getJSONObject(Long.toString(id));
             jsonStringTweet = jsonTweet.toString();
             log.info(jsonStringTweet);
-        //    foo = new org.json.JSONObject("jsonStringTweet");
+            //    foo = new org.json.JSONObject("jsonStringTweet");
             xmlStringTweet = XML.toString(jsonTweet);
             log.fine(jsonTweet.toString());
             log.fine(xmlStringTweet);
+
+            JSONArray jsonArray = new JSONArray(jsonTweet);
 //            new Add(null, xmlStringTweet).execute(context);
         }
     }
