@@ -1,6 +1,5 @@
 package basex;
 
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -9,7 +8,6 @@ import java.util.Properties;
 import java.util.logging.Logger;
 import org.basex.core.BaseXException;
 import org.basex.core.Context;
-import org.basex.core.cmd.Add;
 import org.basex.core.cmd.Open;
 import org.basex.core.cmd.CreateDB;
 import org.basex.core.cmd.DropDB;
@@ -85,9 +83,9 @@ public class DatabaseHelper {
             jsonObjectTweet = new org.json.JSONObject(jsonStringTweet);
             stringXml = XML.toString(jsonObjectTweet);
             stringXml = wrap(stringXml);
-            write(jsonStringTweet);
-            String foo = read("tweet.json");
-            log.info(foo);
+            write(stringXml,"tweet.xml");
+            String stringFromFile = read("tweet.xml");
+            log.info(stringFromFile);
 //            new Add(null, stringXml).execute(context);
         }
     }
@@ -100,10 +98,10 @@ public class DatabaseHelper {
         list();
     }
 
-    private void write(String string) throws IOException {
-        log.fine(string);
-        FileWriter fileWriter = new FileWriter("tweet.json");
-        fileWriter.write(string);
+    private void write(String tweet, String fileName) throws IOException {
+        log.fine(tweet);
+        FileWriter fileWriter = new FileWriter(fileName);
+        fileWriter.write(tweet);
         fileWriter.close();
     }
 
