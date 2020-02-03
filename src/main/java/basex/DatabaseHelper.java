@@ -19,6 +19,7 @@ import twitter4j.JSONException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import org.basex.core.cmd.Add;
 
 public class DatabaseHelper {
 
@@ -76,17 +77,18 @@ public class DatabaseHelper {
         String jsonStringTweet = null;
         org.json.JSONObject jsonObjectTweet = null;
         String stringXml = null;
-
+        String fileName = "tweet.xml";
+        
         new Open(databaseName).execute(context);
         for (int i = 0; i < tweets.length(); i++) {
             jsonStringTweet = tweets.get(i).toString();
             jsonObjectTweet = new org.json.JSONObject(jsonStringTweet);
             stringXml = XML.toString(jsonObjectTweet);
             stringXml = wrap(stringXml);
-            write(stringXml,"tweet.xml");
-            String stringFromFile = read("tweet.xml");
-            log.info(stringFromFile);
-//            new Add(null, stringXml).execute(context);
+            write(stringXml,fileName);
+            String stringFromFile = read(fileName);
+            log.fine(stringFromFile);
+            new Add(fileName, stringXml).execute(context);
         }
     }
 
