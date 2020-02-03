@@ -56,10 +56,12 @@ public class DatabaseHelper {
         new Open(databaseName).execute(context);
         while (keys.hasNext()) {
             id = Long.parseLong(keys.next().toString());
-            JSONObject tweet = tweets.getJSONObject(Long.toString(id));
-            xmlStringTweet = XML.toString(tweet);
-            log.info(stringXml);
-            new Add(databaseName, xmlStringTweet).execute(context);
+            JSONObject jsonTweet = tweets.getJSONObject(Long.toString(id));
+            log.info(Long.toString(id));
+            log.info(jsonTweet.toString());
+            xmlStringTweet = XML.toString(jsonTweet);
+            log.fine(stringXml);
+         //   new Add(databaseName, xmlStringTweet).execute(context);
         }
     }
 
