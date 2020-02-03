@@ -30,6 +30,7 @@ public class DatabaseHelper {
     }
 
     private void init() throws MalformedURLException, BaseXException {
+        log.info(properties.toString());
         parserType = properties.getProperty("parserType");
         url = new URL(properties.getProperty(parserType + "URL"));
         databaseName = properties.getProperty("databaseName");
@@ -43,10 +44,10 @@ public class DatabaseHelper {
         list();
     }
 
-    private void create() throws BaseXException {
+    private void create(JSONObject json) throws BaseXException {
         new Set("parser", parserType).execute(context);
-        //   new CreateDB(databaseName, url.toString()).execute(context);
-        new CreateDB(databaseName, null);
+        String s = json.toString();
+        CreateDB createDB = new CreateDB(databaseName, s);
         new List().execute(context);
         list();
     }
@@ -58,7 +59,7 @@ public class DatabaseHelper {
     public void persist(JSONObject json) throws MalformedURLException, BaseXException {
         init();
         drop();
-        create();
+        create(json);
         log.fine(json.toString());
     }
 }
