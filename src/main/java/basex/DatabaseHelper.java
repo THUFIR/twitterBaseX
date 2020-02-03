@@ -7,6 +7,8 @@ import java.util.Properties;
 import java.util.logging.Logger;
 import org.basex.core.BaseXException;
 import org.basex.core.Context;
+import org.basex.core.cmd.Add;
+import org.basex.core.cmd.Open;
 import org.basex.core.cmd.CreateDB;
 import org.basex.core.cmd.DropDB;
 import org.basex.core.cmd.List;
@@ -33,7 +35,7 @@ public class DatabaseHelper {
     }
 
     private void init() throws MalformedURLException, BaseXException {
-        log.info(properties.toString());
+        log.fine(properties.toString());
         parserType = properties.getProperty("parserType");
         url = new URL(properties.getProperty(parserType + "URL"));
         databaseName = properties.getProperty("databaseName");
@@ -49,10 +51,10 @@ public class DatabaseHelper {
 
     private void create(String fileName) throws BaseXException {
         new Set("parser", parserType).execute(context);
-        log.info(databaseName);
-        log.info(fileName);
+        log.fine(databaseName);
+        log.fine(fileName);
         String filePath = properties.getProperty("jsonData");
-        log.info(filePath);
+        log.fine(filePath);
         //    CreateDB createDB = new CreateDB(databaseName, filePath);
 //        new CreateDB(databaseName, url.toString()).execute(context);
 //        new CreateDB(databaseName, url.toString()).execute(context);
@@ -61,22 +63,24 @@ public class DatabaseHelper {
         list();
     }
 
-    private void iterate(JSONObject json) throws JSONException {
-        String stringXml = XML.toString(json);
+    private void iterate(JSONObject tweets) throws JSONException, BaseXException {
+        String stringXml = XML.toString(tweets);
         long id = 0L;
-        Iterator keys = json.keys();
+        Iterator keys = tweets.keys();
+        String xmlStringTweet = null;
         while (keys.hasNext()) {
             id = Long.parseLong(keys.next().toString());
-            log.info(Long.toString(id));
-            JSONObject t = json.getJSONObject(Long.toString(id));
-            log.info(t.toString());
+            JSONObject tweet = tweets.getJSONObject(Long.toString(id));
+            xmlStringTweet = XML.toString(tweet);
+            new Open(databaseName);
+            new Add("", xmlStringTweet).execute(context);
         }
     }
 
     private void create(JSONObject json) throws BaseXException, JSONException {
         new Set("parser", parserType).execute(context);
         String s = json.toString();
-        CreateDB createDB = new CreateDB(databaseName, s);
+        CreateDB createDB = new CreateDB(databaseName);
         new List().execute(context);
         list();
         iterate(json);

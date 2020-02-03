@@ -22,12 +22,12 @@ public class JsonToXmlTransformer {
         SAXWrapper foo = org.basex.build.json.JsonParser.xmlParser(new IOFile(fileName));
         foo.parse();
         String bar = foo.toString();
-        log.info(bar);
+        log.fine(bar);
     }
 
     public void transform(String fileName) throws IOException {
         String content = new String(Files.readAllBytes(Paths.get(fileName)), StandardCharsets.UTF_8);
         org.json.JSONObject json = new org.json.JSONObject(content);
-        log.info(org.json.XML.toString(json));
+        log.fine(org.json.XML.toString(json));
     }
 }

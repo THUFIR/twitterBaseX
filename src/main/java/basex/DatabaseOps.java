@@ -46,7 +46,7 @@ public class DatabaseOps {
     }
 
     private void list() throws BaseXException {
-        log.info(new List().execute(context));
+        log.fine(new List().execute(context));
     }
 
     private void drop() throws BaseXException {
@@ -86,7 +86,7 @@ public class DatabaseOps {
         //   xmlParser.parse();
         String xml = xmlParser.toString();
 
-        //  log.info(xml);
+        //  log.fine(xml);
         //   new Open(databaseName).execute(context);
         //   new Add(null, xml);
         new Set("parser", parserType).execute(context);
@@ -103,7 +103,7 @@ public class DatabaseOps {
         new List().execute(context);
         list();
 
-        log.info("...............done");
+        log.fine("...............done");
     }
 
     public void loadTweets(String fileName) throws IOException {
