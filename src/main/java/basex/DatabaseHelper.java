@@ -58,7 +58,8 @@ public class DatabaseHelper {
             id = Long.parseLong(keys.next().toString());
             JSONObject tweet = tweets.getJSONObject(Long.toString(id));
             xmlStringTweet = XML.toString(tweet);
-            new Add("", xmlStringTweet).execute(context);
+            log.info(stringXml);
+            new Add(databaseName, xmlStringTweet).execute(context);
         }
     }
 
