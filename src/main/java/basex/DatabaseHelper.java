@@ -12,6 +12,7 @@ import org.basex.core.cmd.DropDB;
 import org.basex.core.cmd.List;
 import org.basex.core.cmd.Set;
 import org.json.XML;
+import twitter4j.JSONException;
 import twitter4j.JSONObject;
 
 public class DatabaseHelper {
@@ -60,19 +61,19 @@ public class DatabaseHelper {
         list();
     }
 
-    private void iterate(JSONObject json) {
+    private void iterate(JSONObject json) throws JSONException {
         String stringXml = XML.toString(json);
         long id = 0L;
         Iterator keys = json.keys();
         while (keys.hasNext()) {
-            Object key = keys.next();
-            String s = key.toString();
-            id = Long.parseLong(s);
-            log.info("long\t\t" + Long.toString(id));
+            id = Long.parseLong(keys.next().toString());
+            log.info(Long.toString(id));
+            JSONObject t = json.getJSONObject(Long.toString(id));
+            log.info(t.toString());
         }
     }
 
-    private void create(JSONObject json) throws BaseXException {
+    private void create(JSONObject json) throws BaseXException, JSONException {
         new Set("parser", parserType).execute(context);
         String s = json.toString();
         CreateDB createDB = new CreateDB(databaseName, s);
@@ -85,7 +86,7 @@ public class DatabaseHelper {
         log.info(new List().execute(context));
     }
 
-    public void persist(JSONObject json) throws MalformedURLException, BaseXException {
+    public void persist(JSONObject json) throws MalformedURLException, BaseXException, JSONException {
         init();
         drop();
         create(json);
