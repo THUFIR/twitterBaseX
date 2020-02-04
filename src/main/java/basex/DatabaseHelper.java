@@ -19,7 +19,9 @@ import twitter4j.JSONException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import org.basex.core.Command;
 import org.basex.core.cmd.Add;
+import org.basex.io.in.ArrayInput;
 
 public class DatabaseHelper {
 
@@ -72,23 +74,54 @@ public class DatabaseHelper {
         list();
     }
 
+    /*
+    
+    String json = "{ \"A\": 123 }";
+    Context ctx = new Context();
+    new CreateDB("test").execute(ctx);
+    new Set("parser", "json").execute(ctx);
+    Command add = new Add("json.xml");
+    add.setInput(new ArrayInput(json));
+    add.execute(ctx);
+    System.out.println(new XQuery(".").execute(ctx));
+
+     */
     private void add(JSONArray tweets) throws JSONException, BaseXException, IOException {
         long id = 0L;
-        String jsonStringTweet = null;
-        org.json.JSONObject jsonObjectTweet = null;
+        String stringJson = null;
+        org.json.JSONObject tweet = null;
         String stringXml = null;
         String fileName = "tweet.json";
-        
+
+        new Open(databaseName).execute(context);
+        new Set("parser", "json").execute(context);
+        Command add = null;
+        for (int i = 0; i < tweets.length(); i++) {
+            String json = "{ \"A\": 123 }";
+            add = new Add("json.xml");
+            add.setInput(new ArrayInput(json));
+            add.execute(context);
+          //  log.info(XQuery(".").execute(context));
+        }
+    }
+
+    private void add2(JSONArray tweets) throws JSONException, BaseXException, IOException {
+        long id = 0L;
+        String stringJson = null;
+        org.json.JSONObject tweet = null;
+        String stringXml = null;
+        String fileName = "tweet.json";
+
         new Open(databaseName).execute(context);
         for (int i = 0; i < tweets.length(); i++) {
-            jsonStringTweet = tweets.get(i).toString();
-            jsonObjectTweet = new org.json.JSONObject(jsonStringTweet);
-            stringXml = XML.toString(jsonObjectTweet);
+            stringJson = tweets.get(i).toString();
+            tweet = new org.json.JSONObject(stringJson);
+            stringXml = XML.toString(tweet);
             stringXml = wrap(stringXml);
-            write(stringXml,fileName);
+            write(stringXml, fileName);
             String stringFromFile = read(fileName);
             log.fine(stringFromFile);
-            new Add(fileName, stringXml).execute(context);
+            new Add(fileName, stringJson).execute(context);
         }
     }
 
