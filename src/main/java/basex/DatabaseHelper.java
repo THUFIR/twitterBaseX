@@ -77,7 +77,6 @@ public class DatabaseHelper {
 
     private void add(JSONArray tweets) throws JSONException, BaseXException, IOException {
         log.fine(tweets.toString());
-//        JSONObject tweet = null;
         String string = null;
         XQuery xquery = new XQuery(".");
         new Open(databaseName).execute(context);
@@ -87,7 +86,6 @@ public class DatabaseHelper {
         for (int i = 0; i < tweets.length(); i++) {
             string = tweets.get(i).toString();
             add = new Add("json.xml");
-            log.info(string);
             add.setInput(new ArrayInput(string));
             add.execute(context);
         }
