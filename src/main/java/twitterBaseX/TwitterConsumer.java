@@ -24,7 +24,6 @@ import twitter4j.conf.ConfigurationBuilder;
 public class TwitterConsumer {
 
     private static final Logger log = Logger.getLogger(TwitterConsumer.class.getName());
-//    private List<JSONObject> tweets = new ArrayList<>();
     private JSONArray tweets = new JSONArray();
 
     public TwitterConsumer() {
@@ -54,8 +53,6 @@ public class TwitterConsumer {
 
     private void populateTweets(Status status) throws JSONException {
         JSONObject tweet = getTweetFromStatus(status);
-        long l = (long) tweet.get("id");
-//        tweets.put(Long.toString(l), tweet);
         tweets.put(tweet);
     }
 
@@ -74,9 +71,6 @@ public class TwitterConsumer {
     private void jsonOps(Status status) throws JSONException {
         String string = TwitterObjectFactory.getRawJSON(status);
         JSONObject json = new JSONObject(string);
-      //  String foo = XML.toString(json);
-    //    XMLObject x = null;
-        // XMLObject xx = new XMLObject(json);
     }
 
     private JSONObject jsonOps2(Status status) throws JSONException, BaseXException {
