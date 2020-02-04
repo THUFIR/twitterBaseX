@@ -89,13 +89,13 @@ public class DatabaseHelper {
             add.setInput(new ArrayInput(json));
             add.execute(context);
         }
-        log.info(xquery.execute(context).toString());
+        log.fine(xquery.execute(context).toString());
     }
 
     public void dropCreateAdd(JSONArray tweets) throws MalformedURLException, BaseXException, JSONException, IOException {
         init();
-        drop();
-        create();
+       // drop();
+       // create();
         add(tweets);
         list();
     }
