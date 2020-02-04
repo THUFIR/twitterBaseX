@@ -92,6 +92,7 @@ public class DatabaseHelper {
         log.info(xquery.execute(context).toString());
     }
 
+    
     public void dropCreateAdd(JSONArray tweets) throws MalformedURLException, BaseXException, JSONException, IOException {
         init();
         // drop();
