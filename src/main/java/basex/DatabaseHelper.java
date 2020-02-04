@@ -77,21 +77,18 @@ public class DatabaseHelper {
 
     private void add(JSONArray tweets) throws JSONException, BaseXException, IOException {
         log.fine(tweets.toString());
-        String stringTweet = null;
         JSONObject tweet = null;
-        String foo = null;
+        long id = 0L;
         XQuery xquery = new XQuery(".");
         new Open(databaseName).execute(context);
         new Set("parser", "json").execute(context);
         Command add = null;
 
         for (int i = 0; i < tweets.length(); i++) {
-            stringTweet = tweets.get(i).toString();
-            tweet = new JSONObject(stringTweet);
-            foo = tweet.get("id__str").toString();
-            log.info(foo);
-            add = new Add("json.xml");
-            add.setInput(new ArrayInput(stringTweet));
+            tweet = new JSONObject(tweets.get(i).toString());
+            id = Long.parseLong(tweet.get("id_str").toString());
+            add = new Add(id + ".xml");
+            add.setInput(new ArrayInput(tweet.toString()));
             add.execute(context);
         }
         log.fine(xquery.execute(context).toString());
