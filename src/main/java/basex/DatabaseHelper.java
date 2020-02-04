@@ -4,24 +4,25 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Properties;
-import java.util.logging.Logger;
-import org.basex.core.BaseXException;
-import org.basex.core.Context;
-import org.basex.core.cmd.Open;
-import org.basex.core.cmd.CreateDB;
-import org.basex.core.cmd.DropDB;
-import org.basex.core.cmd.List;
-import org.basex.core.cmd.Set;
-import org.json.XML;
-import twitter4j.JSONArray;
-import twitter4j.JSONException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Properties;
+import java.util.logging.Logger;
+import org.basex.core.BaseXException;
 import org.basex.core.Command;
+import org.basex.core.Context;
 import org.basex.core.cmd.Add;
+import org.basex.core.cmd.CreateDB;
+import org.basex.core.cmd.DropDB;
+import org.basex.core.cmd.List;
+import org.basex.core.cmd.Open;
+import org.basex.core.cmd.Set;
+import org.basex.core.cmd.XQuery;
 import org.basex.io.in.ArrayInput;
+import org.json.XML;
+import twitter4j.JSONArray;
+import twitter4j.JSONException;
 
 public class DatabaseHelper {
 
@@ -74,36 +75,18 @@ public class DatabaseHelper {
         list();
     }
 
-    /*
-    
-    String json = "{ \"A\": 123 }";
-    Context ctx = new Context();
-    new CreateDB("test").execute(ctx);
-    new Set("parser", "json").execute(ctx);
-    Command add = new Add("json.xml");
-    add.setInput(new ArrayInput(json));
-    add.execute(ctx);
-    System.out.println(new XQuery(".").execute(ctx));
-
-     */
     private void add(JSONArray tweets) throws JSONException, BaseXException, IOException {
         long id = 0L;
         String json = null;
-        org.json.JSONObject tweet = null;
-        String stringXml = null;
-        String fileName = "tweet.json";
-        // String json = null;
 
         new Open(databaseName).execute(context);
         new Set("parser", "json").execute(context);
         Command add = null;
         for (int i = 0; i < tweets.length(); i++) {
-            json = "{ \"A\": 123 }";
             json = tweets.get(i).toString();
             add = new Add("json.xml");
             add.setInput(new ArrayInput(json));
             add.execute(context);
-//  log.info(XQuery(".").execute(context));
         }
     }
 
@@ -113,6 +96,7 @@ public class DatabaseHelper {
         org.json.JSONObject tweet = null;
         String stringXml = null;
         String fileName = "tweet.json";
+        XQuery x;
 
         new Open(databaseName).execute(context);
         for (int i = 0; i < tweets.length(); i++) {
