@@ -88,20 +88,22 @@ public class DatabaseHelper {
      */
     private void add(JSONArray tweets) throws JSONException, BaseXException, IOException {
         long id = 0L;
-        String stringJson = null;
+        String json = null;
         org.json.JSONObject tweet = null;
         String stringXml = null;
         String fileName = "tweet.json";
+        // String json = null;
 
         new Open(databaseName).execute(context);
         new Set("parser", "json").execute(context);
         Command add = null;
         for (int i = 0; i < tweets.length(); i++) {
-            String json = "{ \"A\": 123 }";
+            json = "{ \"A\": 123 }";
+            json = tweets.get(i).toString();
             add = new Add("json.xml");
             add.setInput(new ArrayInput(json));
             add.execute(context);
-          //  log.info(XQuery(".").execute(context));
+//  log.info(XQuery(".").execute(context));
         }
     }
 
