@@ -78,6 +78,7 @@ public class DatabaseHelper {
     private void add(JSONArray tweets) throws JSONException, BaseXException, IOException {
         long id = 0L;
         String json = null;
+        XQuery xquery = new XQuery(".");
 
         new Open(databaseName).execute(context);
         new Set("parser", "json").execute(context);
@@ -88,27 +89,7 @@ public class DatabaseHelper {
             add.setInput(new ArrayInput(json));
             add.execute(context);
         }
-    }
-
-    private void add2(JSONArray tweets) throws JSONException, BaseXException, IOException {
-        long id = 0L;
-        String stringJson = null;
-        org.json.JSONObject tweet = null;
-        String stringXml = null;
-        String fileName = "tweet.json";
-        XQuery x;
-
-        new Open(databaseName).execute(context);
-        for (int i = 0; i < tweets.length(); i++) {
-            stringJson = tweets.get(i).toString();
-            tweet = new org.json.JSONObject(stringJson);
-            stringXml = XML.toString(tweet);
-            stringXml = wrap(stringXml);
-            write(stringXml, fileName);
-            String stringFromFile = read(fileName);
-            log.fine(stringFromFile);
-            new Add(fileName, stringJson).execute(context);
-        }
+        log.info(xquery.execute(context).toString());
     }
 
     public void dropCreateAdd(JSONArray tweets) throws MalformedURLException, BaseXException, JSONException, IOException {
