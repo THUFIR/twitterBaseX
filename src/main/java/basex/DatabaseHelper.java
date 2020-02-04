@@ -12,11 +12,11 @@ import java.util.logging.Logger;
 import org.basex.core.BaseXException;
 import org.basex.core.Command;
 import org.basex.core.Context;
-import org.basex.core.cmd.Add;
 import org.basex.core.cmd.CreateDB;
 import org.basex.core.cmd.DropDB;
 import org.basex.core.cmd.List;
 import org.basex.core.cmd.Open;
+import org.basex.core.cmd.Replace;
 import org.basex.core.cmd.Set;
 import org.basex.core.cmd.XQuery;
 import org.basex.io.in.ArrayInput;
@@ -75,30 +75,29 @@ public class DatabaseHelper {
         list();
     }
 
-    private void add(JSONArray tweets) throws JSONException, BaseXException, IOException {
+    private void replace(JSONArray tweets) throws JSONException, BaseXException, IOException {
         log.fine(tweets.toString());
         JSONObject tweet = null;
         long id = 0L;
-        XQuery xquery = new XQuery(".");
         new Open(databaseName).execute(context);
         new Set("parser", "json").execute(context);
-        Command add = null;
+        Command replace = null;
 
         for (int i = 0; i < tweets.length(); i++) {
             tweet = new JSONObject(tweets.get(i).toString());
             id = Long.parseLong(tweet.get("id_str").toString());
-            add = new Add(id + ".xml");
-            add.setInput(new ArrayInput(tweet.toString()));
-            add.execute(context);
+            replace = new Replace(id + ".xml");
+            replace.setInput(new ArrayInput(tweet.toString()));
+            replace.execute(context);
         }
-        log.fine(xquery.execute(context).toString());
+        log.fine((new XQuery(".")).execute(context).toString());
     }
 
     public void dropCreateAdd(JSONArray tweets) throws MalformedURLException, BaseXException, JSONException, IOException {
         init();
         // drop();
         //  create();
-        add(tweets);
+        replace(tweets);
         list();
     }
 
